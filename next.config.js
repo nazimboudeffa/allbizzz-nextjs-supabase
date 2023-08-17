@@ -1,8 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    env: {
-        FB_ACCESS_TOKEN: process.env.ACCESS_TOKEN,
-    }
-}
+const nextConfig = {}
 
 module.exports = nextConfig

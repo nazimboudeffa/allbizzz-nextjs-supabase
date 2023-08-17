@@ -12,7 +12,7 @@ const Search = () => {
         try {
             const { data } = await axios({
               url:
-                "https://graph.facebook.com/search?type=adinterest&q=[%22"+ searchKey +"%22]&limit=1000&locale=fr_FR&access_token=" + process.env.FB_ACCESS_TOKEN,
+                "https://graph.facebook.com/search?type=adinterest&q=[%22"+ searchKey +"%22]&limit=1000&locale=fr_FR&access_token=" + process.env.NEXT_PUBLIC_ACCESS_TOKEN,
               method: "get",
             });
             console.log("response from fb request", data)
