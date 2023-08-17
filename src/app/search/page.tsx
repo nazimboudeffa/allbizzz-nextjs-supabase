@@ -7,7 +7,7 @@ const Search = () => {
     const [searchKey, setSearchKey] = useState("")
     const [interests, setInterests] = useState([])
 
-    const searchArtists = async (e) => {
+    const searchInterests = async (e : any) => {
         e.preventDefault()
         try {
             const { data } = await axios({
@@ -37,7 +37,7 @@ const Search = () => {
 
     return (
         <>
-        <form onSubmit={searchArtists}>
+        <form onSubmit={searchInterests}>
             <div className="flex items-center gap-4">
                 <input type="text" onChange={e => setSearchKey(e.target.value)} className='border border-black rounded'/>
                 <button type={"submit"} className='rounded-lg text-green-500 bg-black'>Search</button>
