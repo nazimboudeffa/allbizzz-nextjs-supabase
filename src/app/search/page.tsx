@@ -5,7 +5,7 @@ import axios from 'axios';
 const Search = () => {
 
     const [searchKey, setSearchKey] = useState("")
-    const [interests, setInterests] = useState([])
+    const [interests, setInterests] = useState<any[]>([])
 
     const searchInterests = async (e : any) => {
         e.preventDefault()
