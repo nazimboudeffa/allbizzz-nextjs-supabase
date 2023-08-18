@@ -26,7 +26,7 @@ const Search = () => {
 
     const renderInterests = () => {
         return interests.map(interest => (
-            // eslint-disable-next-line react/jsx-key
+
             <div className="bg-gray-200 p-4 rounded-lg" key={interest.id}>
                 <h3 className="text-lg font-bold">{interest.name}</h3>
                 <p className="text-sm">{interest.audience_size_lower_bound}</p>

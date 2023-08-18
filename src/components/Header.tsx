@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 function Header () {
     return (
         <header className="bg-white">
@@ -82,12 +84,9 @@ function Header () {
 
             <div className="flex items-center gap-4">
                 <div className="sm:flex sm:gap-4">
-                <a
-                    className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow"
-                    href="/"
-                >
+                <Link href="/auth" className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow">
                     Login
-                </a>
+                </Link>
                 </div>
 
                 <div className="block md:hidden">
