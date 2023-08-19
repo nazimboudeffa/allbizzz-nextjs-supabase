@@ -12,7 +12,7 @@ const Jobs = function () {
     const [formData, setFormData] = useState({ user: user, title: "", description: "", job_category: "", });
     const [error, setError] = useState({ user: "", title: "", description: "", job_category: ""});
 
-    const handleSubmit = async (e : any) => {
+    const handleSubmit = async (e : any | null) => {
 
         e.preventDefault();
 
@@ -75,7 +75,7 @@ const Jobs = function () {
                         error.description && <p className="text-sm text-red-500">{error.description}</p>
                     }
                 </div>
-                <Select onChange={(e) => setFormData({ ...formData, job_category: e.value })} placeholder="Please Select Job type" options={options} />
+                <Select onChange={(e : any | null) => setFormData({ ...formData, job_category: e.value })} placeholder="Please Select Job type" options={options} />
                 <div className='w-full mb-4  flex flex-col items-start justify-center'>
                     {
                         error.job_category && <p className="text-sm text-red-500">{error.job_category}</p>
