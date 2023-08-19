@@ -27,7 +27,7 @@ function Header () {
                 <ul className="flex items-center gap-6 text-sm">
                     <li>
                     <a
-                        className="text-gray-500 transition hover:text-gray-500/75"
+                        className="text-gray-200 transition hover:text-gray-500/75"
                         href="/"
                     >
                         About
@@ -35,44 +35,17 @@ function Header () {
                     </li>
 
                     <li>
-                    <a
+                    <Link
                         className="text-gray-500 transition hover:text-gray-500/75"
-                        href="/"
-                    >
-                        Careers
-                    </a>
-                    </li>
-
-                    <li>
-                    <a
-                        className="text-gray-500 transition hover:text-gray-500/75"
-                        href="/"
-                    >
-                        History
-                    </a>
-                    </li>
-
-                    <li>
-                    <a
-                        className="text-gray-500 transition hover:text-gray-500/75"
-                        href="/"
+                        href="/services"
                     >
                         Services
-                    </a>
+                    </Link>
                     </li>
 
                     <li>
                     <a
-                        className="text-gray-500 transition hover:text-gray-500/75"
-                        href="/"
-                    >
-                        Projects
-                    </a>
-                    </li>
-
-                    <li>
-                    <a
-                        className="text-gray-500 transition hover:text-gray-500/75"
+                        className="text-gray-200 transition hover:text-gray-500/75"
                         href="/"
                     >
                         Blog
@@ -86,6 +59,9 @@ function Header () {
                 <div className="sm:flex sm:gap-4">
                 <Link href="/auth" className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow">
                     Login
+                </Link>
+                <Link href="/auth" className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow">
+                    Register
                 </Link>
                 </div>
 
