@@ -1,6 +1,11 @@
+'use client'
 import Link from "next/link"
+import '@/lib/i18n';
+import { useTranslation } from 'react-i18next';
 
 function Header () {
+    const { t, i18n } = useTranslation();
+
     return (
         <header className="bg-white">
         <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
@@ -30,7 +35,7 @@ function Header () {
                         className="text-gray-200 transition hover:text-gray-500/75"
                         href="/"
                     >
-                        About
+                        {t('About')}
                     </a>
                     </li>
 
