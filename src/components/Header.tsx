@@ -2,6 +2,7 @@
 import Link from "next/link"
 import '@/lib/i18n';
 import { useTranslation } from 'react-i18next';
+import { ThemeToggle } from "@/components/theme-toggle"
 
 function Header () {
     const { t, i18n } = useTranslation();
@@ -90,6 +91,7 @@ function Header () {
                     </svg>
                 </button>
                 </div>
+                <ThemeToggle />       
             </div>
             </div>
         </div>
