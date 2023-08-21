@@ -1,5 +1,6 @@
 import Header from "@/components/Header"
 import Link from "next/link"
+import { XCircle, CheckCircle2 } from 'lucide-react';
 
 const Services = function () {
 
@@ -8,24 +9,32 @@ const Services = function () {
             name: "Affiliation",
             description:
                 "Create affiliation campaings.",
+            icon: <XCircle />,
+            color: "red",
             link: "/",
         },
         {
             name: "Marketing",
             description:
                 "Create marketing campaings.",
+            icon: <CheckCircle2 />,
+            color: "green",
             link: "/",
         },
         {
             name: "Crypto",
             description:
                 "Manage your cryptos.",
+            icon: <XCircle />,
+            color: "red",
             link: "/",
         },
         {
             name: "Trading",
             description:
                 "Manage your trading.",
+            icon: <XCircle />,
+            color: "red",
             link: "/",
         }
     ]
@@ -43,6 +52,9 @@ const Services = function () {
                         href={service.link}
                         className="flex flex-row items-center gap-2 text-2xl font-bold tracking-tight"
                     >
+                        <span className={`text-${service.color}-500 dark:text-${service.color}-700`}>
+                            {service.icon}
+                        </span>
                         <div className="relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 after:ease-in-out hover:after:origin-bottom-left hover:after:scale-x-100">
                             {service.name}
                         </div>
