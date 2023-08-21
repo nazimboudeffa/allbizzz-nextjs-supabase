@@ -35,12 +35,12 @@ function Header () {
                 <nav aria-label="Global">
                 <ul className="flex items-center gap-6 text-sm">
                     <li>
-                    <a
-                        className="text-gray-200 transition hover:text-gray-500/75"
-                        href="/"
+                    <Link
+                        className="text-gray-500 transition hover:text-gray-500/75"
+                        href="/about"
                     >
                         {t('About')}
-                    </a>
+                    </Link>
                     </li>
 
                     <li>
@@ -53,12 +53,12 @@ function Header () {
                     </li>
 
                     <li>
-                    <a
-                        className="text-gray-200 transition hover:text-gray-500/75"
-                        href="/"
+                    <Link
+                        className="text-gray-500 transition hover:text-gray-500/75"
+                        href="/pricing"
                     >
-                        Blog
-                    </a>
+                        Pricing
+                    </Link>
                     </li>
                 </ul>
                 </nav>
