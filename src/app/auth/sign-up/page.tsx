@@ -31,7 +31,7 @@ export default function SignIn() {
                         href="/auth/sign-in"
                         className="hover:text-brand underline underline-offset-4"
                     >
-                        Don&apos;t have an account? Sign Up
+                        Already have an account? Sign In
                     </Link>
                 </p>
             </div>
