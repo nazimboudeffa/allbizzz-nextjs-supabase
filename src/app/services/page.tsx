@@ -1,6 +1,7 @@
 import Header from "@/components/Header"
 import Link from "next/link"
 import { XCircle, CheckCircle2 } from 'lucide-react';
+import { fontHeading } from "@/lib/fonts"
 
 const Services = function () {
 
@@ -42,7 +43,17 @@ const Services = function () {
     return (
         <>
         <Header />
-        <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
+        <header className="flex max-w-[980px] flex-col items-start gap-2 ml-5 mr-5 ">
+            <h1
+                className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}
+            >
+                Services
+            </h1>
+            <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
+                We provide services, tools and features to help you grow your business.
+            </p>
+        </header>
+        <div className="ml-5 mr-5 mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
             {allServices.map((service, idx) => (
                 <div
                     key={idx}
