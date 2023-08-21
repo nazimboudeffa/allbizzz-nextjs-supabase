@@ -1,3 +1,6 @@
+import Image from 'next/image'
+import unsplash from '/public/kenny-eliason-hKegPH8_4Rg-unsplash.jpg'
+
 function Hero () {
     return (
         <section
@@ -20,7 +23,7 @@ function Hero () {
 
             <div className="mt-4 md:mt-8">
                 <a
-                href="#"
+                href="/pricing"
                 className="inline-block rounded bg-emerald-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-emerald-700 focus:outline-none focus:ring focus:ring-yellow-400"
                 >
                 Get Started Today
@@ -29,9 +32,9 @@ function Hero () {
             </div>
         </div>
 
-        <img
-            alt="Violin"
-            src="https://images.unsplash.com/photo-1665686310934-8fab52b3821b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+        <Image
+            alt="Sleep while make money"
+            src={unsplash}
             className="h-full w-full object-cover sm:h-[calc(100%_-_2rem)] sm:self-end sm:rounded-ss-[30px] md:h-[calc(100%_-_4rem)] md:rounded-ss-[60px]"
         />
         </section>
