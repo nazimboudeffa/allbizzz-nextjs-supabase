@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form"
 import { Loader2 } from "lucide-react"
 import { singInSchema } from "@/lib/validations"
 import * as z from "zod"
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { supabase } from "@/config/supabase"
 
 import { cn } from "@/lib/cn"
 import { buttonVariants } from "@/components/ui/button"
@@ -16,12 +16,13 @@ import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
 
+import { useRouter } from 'next/navigation';
 
 type FormData = z.infer<typeof singInSchema>
 
 export function UserAuthForm() {
-    
-    const supabase = createClientComponentClient()
+
+    const router = useRouter();
 
     const {
         register,
@@ -39,7 +40,7 @@ export function UserAuthForm() {
 
         const { data, error } = await supabase.auth.signInWithPassword({
             email : cred.email.toLowerCase(),
-            password : cred.password
+            password : cred.password,
         })
 
         console.log({ data, error });
@@ -52,13 +53,11 @@ export function UserAuthForm() {
                 description: "Your sign in request failed. Please try again.",
                 variant: "destructive",
             })
+        } else {
+
+            router.push('/dashboard');
         }
 
-        return toast({
-            title: "Check your email",
-            description:
-                "We sent you a login link. Be sure to check your spam too.",
-        })
     }
 
     const handleSignInWithGoogle = async() => {
@@ -66,8 +65,9 @@ export function UserAuthForm() {
             provider: 'google',
             options: {
                 redirectTo: `${location.origin}/auth/callback`,
-                      },
+            },
         })
+        setIsGoogleLoading(false)
     }
 
     return (
@@ -85,8 +85,8 @@ export function UserAuthForm() {
                             autoCapitalize="none"
                             autoComplete="email"
                             autoCorrect="off"
-                            disabled={isLoading || isGoogleLoading}
                             {...register("email")}
+                            disabled={isLoading || isGoogleLoading}
                         />
                         {errors?.email && (
                             <p className="px-1 text-xs text-red-600">
@@ -103,18 +103,24 @@ export function UserAuthForm() {
                             autoCapitalize="none"
                             autoComplete="email"
                             autoCorrect="off"
+                            {...register("password")}
                             disabled={isLoading || isGoogleLoading}
                         />
+                        {errors?.password && (
+                            <p className="px-1 text-xs text-red-600">
+                                {errors.password.message}
+                            </p>
+                        )}
                     </div>
                     <button
                         className={cn(buttonVariants())}
-                        disabled={isLoading}
+                        disabled={isLoading || isGoogleLoading}
                         type="submit"
                     >
                         {isLoading && (
                             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                         )}
-                        Sign In with Email
+                        Sign in with Email
                     </button>
                 </div>
             </form>

@@ -5,10 +5,25 @@ import { useTranslation } from 'react-i18next';
 import { ThemeToggle } from "@/components/theme-toggle"
 import { useState } from "react";
 import MobileMenu from "./MobileMenu";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-function Header () {
+function Header ( { user } : any ) {
+
+    console.log(user)
+
     const { t, i18n } = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
+
+    const supabase = createClientComponentClient();
+
+    async function handleSignOut() {
+      const { error } = await supabase.auth.signOut();
+  
+      if (error) {
+        // eslint-disable-next-line no-console
+        console.error('ERROR:', error);
+      }
+    }
 
     return (
         <header className="bg-white">
@@ -65,6 +80,16 @@ function Header () {
             </div>
 
             <div className="flex items-center gap-4">
+                {user ? (
+                    <div className="flex items-center gap-4">
+                        <Link href="/dashboard" className="text-sm font-medium text-gray-500 hover:text-gray-500/75">
+                            Dashboard
+                        </Link>
+                        <button onClick={handleSignOut} className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow">
+                            Logout
+                        </button>
+                    </div>
+                    ) : (
                 <div className="sm:flex sm:gap-4">
                 <Link href="/auth/sign-in" className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow">
                     Login
@@ -73,7 +98,7 @@ function Header () {
                     Register
                 </Link>
                 </div>
-
+                )}
                 <div className="block md:hidden">
                 <button type="button" className="p-2 lg:hidden" onClick={()=>setOpen(!open)}>
                     { open ? 
