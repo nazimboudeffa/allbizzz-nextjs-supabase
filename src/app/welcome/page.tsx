@@ -1,14 +1,31 @@
-import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import { getCurrentSession } from "@/lib/session"
+import Footer from '@/components/Footer'
 
-async function Home () {
-  
-  const s = await getCurrentSession()
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+
+async function Welcome () {
+
+  const cookieStore = cookies();
+
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const { data } = await supabase.auth.getSession();
+
+  console.log(data.session)
+
+  if (!data?.session) {
+    redirect('/');
+  }
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
 
   return (
     <>
-    <Header session = {s} />
+    <Header user = { user } />
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
         <h1 className="text-2xl font-semibold tracking-tight">
             Welcome to ALLBIZZZ
@@ -22,4 +39,4 @@ async function Home () {
   )
 }
 
-export default Home
+export default Welcome
