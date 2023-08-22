@@ -64,7 +64,7 @@ export function UserAuthForm() {
             provider: 'google',
             options: {
                 redirectTo: `${location.origin}/auth/callback`,
-                      },
+            },
         })
     }
 

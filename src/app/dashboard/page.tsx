@@ -3,11 +3,18 @@ import Header from '@/components/Header'
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
 async function Home () {
 
-
   const supabase = createServerComponentClient({ cookies });
+  const { data } = await supabase.auth.getSession();
+
+  console.log(data.session)
+
+  if (data?.session) {
+    redirect('/');
+  }
 
   const {
     data: { user },

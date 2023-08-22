@@ -7,7 +7,7 @@ import { useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-function Header ( user : any ) {
+function Header ( { user } : any ) {
 
     console.log(user)
 
