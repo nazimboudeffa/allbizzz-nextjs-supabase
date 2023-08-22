@@ -5,14 +5,14 @@ import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 
-async function Home () {
+async function Dashboard () {
 
   const supabase = createServerComponentClient({ cookies });
   const { data } = await supabase.auth.getSession();
 
   console.log(data.session)
 
-  if (data?.session) {
+  if (!data?.session) {
     redirect('/');
   }
 
@@ -37,4 +37,4 @@ async function Home () {
   )
 }
 
-export default Home
+export default Dashboard
