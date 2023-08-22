@@ -1,5 +1,5 @@
-import Footer from '@/components/Footer'
 import Header from '@/components/Header'
+import Footer from '@/components/Footer'
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
@@ -7,12 +7,14 @@ import { redirect } from 'next/navigation';
 
 async function Dashboard () {
 
-  const supabase = createServerComponentClient({ cookies });
+  const cookieStore = cookies();
+
+  const supabase = createServerComponentClient({ cookies: () => cookieStore });
   const { data } = await supabase.auth.getSession();
 
   console.log(data.session)
 
-  if (data?.session) {
+  if (!data?.session) {
     redirect('/');
   }
 
