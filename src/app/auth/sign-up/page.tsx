@@ -1,6 +1,6 @@
 import Link from "next/link"
 
-import { UserAuthForm } from "@/components/user-auth-form"
+import { UserAuthForm } from "@/components/user-auth-form-sign-up"
 
 export default function SignIn() {
     return (
