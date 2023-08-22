@@ -1,14 +1,22 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import { getCurrentSession } from "@/lib/session"
+
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 
 async function Home () {
-  
-  const s = await getCurrentSession()
+
+
+  const supabase = createServerComponentClient({ cookies });
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
 
   return (
     <>
-    <Header session = {s} />
+    <Header user = {user} />
     <div className="container flex h-screen w-screen flex-col items-center justify-center">
         <h1 className="text-2xl font-semibold tracking-tight">
             Your dashboard

@@ -5,7 +5,6 @@ import { useTranslation } from 'react-i18next';
 import { ThemeToggle } from "@/components/theme-toggle"
 import { useState } from "react";
 import MobileMenu from "./MobileMenu";
-import { useRouter } from 'next/navigation'
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 function Header ( user : any ) {
@@ -15,21 +14,15 @@ function Header ( user : any ) {
     const { t, i18n } = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
 
-    const router = useRouter()
+    const supabase = createClientComponentClient();
 
-    const supabase = createClientComponentClient()
-
-    const handleSignOut = async () => {
-        try {
-            const { error } = await supabase.auth.signOut()
-            if (error) {
-                console.log(error)
-            }
-        } catch (error) {
-            console.log(error)
-        } finally {
-            router.refresh()
-        }
+    async function handleSignOut() {
+      const { error } = await supabase.auth.signOut();
+  
+      if (error) {
+        // eslint-disable-next-line no-console
+        console.error('ERROR:', error);
+      }
     }
 
     return (
