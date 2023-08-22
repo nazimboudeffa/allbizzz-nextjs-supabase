@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form"
 import { Loader2 } from "lucide-react"
 import { singInSchema } from "@/lib/validations"
 import * as z from "zod"
-import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { supabase } from "@/config/supabase"
 
 import { cn } from "@/lib/cn"
 import { buttonVariants } from "@/components/ui/button"
@@ -20,8 +20,6 @@ import { Icons } from "@/components/icons"
 type FormData = z.infer<typeof singInSchema>
 
 export function UserAuthForm() {
-    
-    const supabase = createClientComponentClient()
 
     const {
         register,
