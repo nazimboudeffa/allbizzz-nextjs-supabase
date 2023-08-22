@@ -4,7 +4,7 @@ import unsplash from '/public/kenny-eliason-hKegPH8_4Rg-unsplash.jpg'
 function Hero () {
     return (
         <section
-        className="overflow-hidden bg-gray-50 sm:grid sm:grid-cols-2 sm:items-center min-h-screen"
+        className="overflow-hidden bg-gray-50 sm:grid sm:grid-cols-2 sm:items-center flex-1"
         >
         <div className="p-8 md:p-12 lg:px-16 lg:py-24">
             <div

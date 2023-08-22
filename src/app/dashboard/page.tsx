@@ -12,7 +12,7 @@ async function Dashboard () {
 
   console.log(data.session)
 
-  if (!data?.session) {
+  if (data?.session) {
     redirect('/');
   }
 
@@ -23,8 +23,9 @@ async function Dashboard () {
 
   return (
     <>
+    <div className="min-h-screen flex flex-col justify-between">
     <Header user = {user} />
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
+    <div className="container flex flex-col items-center justify-center">
         <h1 className="text-2xl font-semibold tracking-tight">
             Your dashboard
         </h1>
@@ -33,6 +34,7 @@ async function Dashboard () {
         </p>
     </div>
     <Footer />
+    </div>
     </>
   )
 }
