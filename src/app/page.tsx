@@ -1,7 +1,7 @@
+import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import Hero from '@/components/Hero'
 import Welcome from '@/components/Welcome'
-import Header from '@/components/Header'
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
@@ -17,7 +17,7 @@ async function Home () {
   return (
     <>
     <div className="min-h-screen flex flex-col justify-between">
-    <Header session = {session} />
+    <Header session = { session } />
     { session ? (
       <Welcome />
     ) : (

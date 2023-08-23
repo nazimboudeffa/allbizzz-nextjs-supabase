@@ -1,10 +1,20 @@
 import Header from "@/components/Header"
 import { fontHeading } from "@/lib/fonts"
 
-const About = () => {
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+
+const About = async () => {
+
+    const supabase = createServerComponentClient({ cookies });
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
     return (
         <>
-        <Header />
+        <Header session = { session } />
             <div className="mt-10 flex flex-col items-center gap-10 text-center">
                 <h1
                     className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}
