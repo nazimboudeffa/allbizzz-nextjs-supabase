@@ -8,8 +8,11 @@ import MobileMenu from "./MobileMenu";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import type { Session } from '@supabase/auth-helpers-nextjs'
+import { useRouter } from "next/navigation";
 
 function Header ( { session }: { session: Session | null } ) {
+    
+    const router = useRouter()
 
     console.log(session)
 
@@ -25,6 +28,8 @@ function Header ( { session }: { session: Session | null } ) {
         // eslint-disable-next-line no-console
         console.error('ERROR:', error);
       }
+
+      router.push('/')
     }
 
     return (
