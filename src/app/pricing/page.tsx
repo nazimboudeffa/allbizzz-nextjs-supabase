@@ -5,9 +5,20 @@ import { fontHeading } from "@/lib/fonts"
 import { buttonVariants } from "@/components/ui/button"
 import Header from "@/components/Header"
 
-export default function PricingPage() {
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+
+export default async function PricingPage() {
+
+    const supabase = createServerComponentClient({ cookies });
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
+
     const pricingPlans = [
         {
+            id: "0",
             name: "Free",
             price: "$0",
             href: "/auth/sign-up",
@@ -19,6 +30,7 @@ export default function PricingPage() {
             ],
         },
         {
+            id: "1",
             name: "Premium",
             upcomingPrice: "$99",
             price: "$0",
@@ -35,7 +47,7 @@ export default function PricingPage() {
 
     return (
         <>
-        <Header />
+        <Header session = { session } />
             <div className="mt-10 flex flex-col items-center gap-10 text-center">
                 <h1
                     className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}
@@ -47,10 +59,10 @@ export default function PricingPage() {
                 </p>
             </div>
             <div className="mt-10 flex flex-row flex-wrap gap-5 px-20 justify-center">
-                {pricingPlans.map((p, idx) => (
+                {pricingPlans.map((p) => (
                     <div
                         className={`shadow dark:border dark:border-slate-800 rounded-3xl flex flex-col items-center p-5 min-w-[350px] ${p.highlight && "shadow-lg"}`}
-                        key={idx}
+                        key={p.id}
                     >
                         <div className="text-sm flex flex-row gap-2 items-center">
                             {p.name.toLowerCase() == "premium" ? (
