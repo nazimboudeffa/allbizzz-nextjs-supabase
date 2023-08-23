@@ -4,7 +4,6 @@ import Header from '@/components/Header'
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Select from 'react-select';
-import { supabase } from '@/utils/supabase'
 
 const Jobs = function () {
     const user = "test user"
@@ -35,17 +34,6 @@ const Jobs = function () {
             return toast.error("Please Login First");
         }
 
-
-        const { data, error } = await supabase
-        .from('jobs')
-        .insert({ created_at: Date.now(), updated_at: Date.now(), uuid: user, title: formData.title, description: formData.description, job_category: formData.job_category })
-
-        if (error) {
-            toast.error("job not inserted");
-        }
-        else {
-            toast.success("job inserted");
-        }
     }
 
 
