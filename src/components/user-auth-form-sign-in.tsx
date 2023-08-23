@@ -18,9 +18,13 @@ import { Icons } from "@/components/icons"
 
 import { useRouter } from 'next/navigation';
 
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+
 type FormData = z.infer<typeof singInSchema>
 
 export function UserAuthForm() {
+
+    const supabase = createClientComponentClient();
 
     const router = useRouter();
 
