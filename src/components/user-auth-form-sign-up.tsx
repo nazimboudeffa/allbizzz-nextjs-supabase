@@ -16,10 +16,16 @@ import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/use-toast"
 import { Icons } from "@/components/icons"
 
+import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
+import { useRouter } from 'next/navigation';
 
 type FormData = z.infer<typeof singInSchema>
 
 export function UserAuthForm() {
+
+    const supabase = createClientComponentClient();
+
+    const router = useRouter();
 
     const {
         register,
@@ -55,11 +61,9 @@ export function UserAuthForm() {
             })
         }
 
-        return toast({
-            title: "Check your email",
-            description:
-                "We sent you a login link. Be sure to check your spam too.",
-        })
+        else {
+            router.refresh()
+        }
     }
 
     const handleSignInWithGoogle = async() => {
