@@ -42,7 +42,6 @@ const Services = function () {
     
     return (
         <>
-        <Header />
         <header className="flex max-w-[980px] flex-col items-start gap-2 ml-5 mr-5 ">
             <h1
                 className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}

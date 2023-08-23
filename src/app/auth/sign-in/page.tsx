@@ -1,8 +1,22 @@
 import Link from "next/link"
 
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
+
 import { UserAuthForm } from "@/components/user-auth-form-sign-in"
 
-export default function SignIn() {
+export default async function SignIn() {
+
+    const supabase = createServerComponentClient({ cookies });
+    const { data } = await supabase.auth.getSession();
+  
+    console.log(data.session)
+  
+    if (data?.session) {
+      redirect('/dashboard');
+    }
+
     return (
         <div className="container flex h-screen w-screen flex-col items-center justify-center">
             <Link

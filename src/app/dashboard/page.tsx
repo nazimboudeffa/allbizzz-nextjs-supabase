@@ -7,26 +7,20 @@ import { redirect } from 'next/navigation';
 
 async function Dashboard () {
 
-  const cookieStore = cookies();
+  const supabase = createServerComponentClient({ cookies });
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
 
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
-  const { data } = await supabase.auth.getSession();
-
-  console.log(data.session)
-
-  if (!data?.session) {
+  if (!session) {
     redirect('/');
   }
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
 
   return (
     <>
     <div className="min-h-screen flex flex-col justify-between">
-    <Header user = {user} />
+    <Header session = { session } />
     <div className="container flex flex-col items-center justify-center">
         <h1 className="text-2xl font-semibold tracking-tight">
             Your dashboard

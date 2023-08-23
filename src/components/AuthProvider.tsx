@@ -1,16 +1,15 @@
 'use client';
 
-import { createContext, useEffect } from 'react';
+import { createContext, useEffect, ReactNode } from 'react';
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { useRouter } from 'next/navigation';
-import { ReactNode } from "react";
 
 type authContextType = {
-    user: string | null;
+    accessToken: string | null;
 };
 
 const authContextDefaultValues: authContextType = {
-    user: null,
+    accessToken: null,
 };
 
 export const AuthContext = createContext<authContextType>(authContextDefaultValues);
