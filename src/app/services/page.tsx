@@ -3,10 +3,20 @@ import Link from "next/link"
 import { XCircle, CheckCircle2 } from 'lucide-react';
 import { fontHeading } from "@/lib/fonts"
 
-const Services = function () {
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
+
+const Services = async function () {
+
+    const supabase = createServerComponentClient({ cookies });
+
+    const {
+      data: { session },
+    } = await supabase.auth.getSession();
 
     const allServices = [
         {
+            id: "0",
             name: "Affiliation",
             description:
                 "Create affiliation campaings.",
@@ -15,6 +25,7 @@ const Services = function () {
             link: "/",
         },
         {
+            id: "1",
             name: "Marketing",
             description:
                 "Create marketing campaings.",
@@ -23,6 +34,7 @@ const Services = function () {
             link: "/",
         },
         {
+            id: "2",
             name: "Crypto",
             description:
                 "Manage your cryptos.",
@@ -31,6 +43,7 @@ const Services = function () {
             link: "/",
         },
         {
+            id: "3",
             name: "Trading",
             description:
                 "Manage your trading.",
@@ -42,7 +55,8 @@ const Services = function () {
     
     return (
         <>
-        <header className="flex max-w-[980px] flex-col items-start gap-2 ml-5 mr-5 ">
+        <Header session = { session } />
+        <header className="mt-10 flex flex-col items-center gap-10 text-center">
             <h1
                 className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}
             >
@@ -52,10 +66,11 @@ const Services = function () {
                 We provide services, tools and features to help you grow your business.
             </p>
         </header>
+        <section className="flex flex-col items-center gap-10 text-center">
         <div className="ml-5 mr-5 mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
-            {allServices.map((service, idx) => (
+            {allServices.map((service) => (
                 <div
-                    key={idx}
+                    key={service.id}
                     className="p-5 shadow rounded-[12px] dark:shadow-slate-900"
                 >
                     <Link
@@ -75,6 +90,7 @@ const Services = function () {
                 </div>
             ))}
         </div>
+        </section>
         </>
     )
 }
