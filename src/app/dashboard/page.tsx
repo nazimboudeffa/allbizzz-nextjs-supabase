@@ -7,9 +7,7 @@ import { redirect } from 'next/navigation';
 
 async function Dashboard () {
 
-  const cookieStore = cookies();
-
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createServerComponentClient({ cookies });
   const { data } = await supabase.auth.getSession();
 
   console.log(data.session)

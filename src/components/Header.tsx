@@ -7,9 +7,11 @@ import { useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
-function Header ( { user } : any ) {
+import type { Session } from '@supabase/auth-helpers-nextjs'
 
-    console.log(user)
+function Header ( { session }: { session: Session | null } ) {
+
+    console.log(session)
 
     const { t, i18n } = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
@@ -80,7 +82,7 @@ function Header ( { user } : any ) {
             </div>
 
             <div className="flex items-center gap-4">
-                {user ? (
+                {session ? (
                     <div className="flex items-center gap-4">
                         <Link href="/dashboard" className="text-sm font-medium text-gray-500 hover:text-gray-500/75">
                             Dashboard

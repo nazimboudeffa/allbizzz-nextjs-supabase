@@ -1,5 +1,6 @@
 import Footer from '@/components/Footer'
 import Hero from '@/components/Hero'
+import Welcome from '@/components/Welcome'
 import Header from '@/components/Header'
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -10,14 +11,18 @@ async function Home () {
   const supabase = createServerComponentClient({ cookies });
 
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
 
   return (
     <>
     <div className="min-h-screen flex flex-col justify-between">
-    <Header user = {user} />
-    <Hero />
+    <Header session = {session} />
+    { session ? (
+      <Welcome />
+    ) : (
+      <Hero />
+    )}
     <Footer />
     </div>
     </>

@@ -55,7 +55,7 @@ export function UserAuthForm() {
             })
         } else {
 
-            router.push('/dashboard');
+            router.refresh()
         }
 
     }
@@ -68,6 +68,7 @@ export function UserAuthForm() {
             },
         })
         setIsGoogleLoading(false)
+        router.refresh()
     }
 
     return (
