@@ -1,6 +1,7 @@
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/text-area"
 import { Button } from "@/components/ui/button"
+import { Trash2 } from 'lucide-react';
 
 import { supabase } from "@/config/supabase"
 
@@ -32,12 +33,15 @@ return (
             </div>
         </div>
     </form>
-    <div>
-        <h1 className="text-2xl font-bold text-center">Ideas</h1>
+    <div className="md:w-[500px] items-center">
+        <h1 className="text-2xl font-bold mb-5">Your shared ideas</h1>
         <div className="flex flex-col">
         {ideas && ideas.map((idea) => (
-            <div key={idea.id}>{idea.description}</div> 
-        )) }
+            <div key={idea.id} className="flex justify-between p-5 border border-input shadow rounded-[12px] dark:border-slate-900 dark:shadow-slate-900 mb-3">
+                <div>{idea.description}</div>
+                <Trash2 className="text-red-500 dark:text-red-700"/>
+            </div>
+        ))}
         </div>
     </div>
     </>

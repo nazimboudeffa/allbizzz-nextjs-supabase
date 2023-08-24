@@ -28,7 +28,7 @@ export default async function ShareIdeas() {
                 </p>
             </div>
             </header>
-            <section className="flex flex-col items-center gap-10 mt-10">
+            <section className="flex flex-col gap-10 mt-10 items-center">
                 {!session ? (<div>You must be loggedin</div>) : (<Idea />)}
             </section>
         </>
