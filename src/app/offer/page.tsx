@@ -29,8 +29,8 @@ const Services = async function () {
             name: "Marketing",
             description:
                 "Create marketing campaings.",
-            icon: <CheckCircle2 />,
-            color: "green",
+            icon: <XCircle />,
+            color: "red",
             link: "/",
         },
         {
@@ -50,6 +50,15 @@ const Services = async function () {
             icon: <XCircle />,
             color: "red",
             link: "/",
+        },
+        {
+            id: "4",
+            name: "Share you ideas",
+            description:
+                "Share ideas and get business partners.",
+            icon: <CheckCircle2 />,
+            color: "green",
+            link: "/services/share-ideas",
         }
     ]
     
