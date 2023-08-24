@@ -19,7 +19,7 @@ const About = async () => {
                 <h1
                     className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}
                 >
-                    About.
+                    About the project
                 </h1>
                 <p className="max-w-[500px] text-lg text-muted-foreground sm:text-xl">
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illo, voluptatibus. Magni, sit! Quia, repellat? Iure voluptatum pariatur dolor obcaecati ut, enim reprehenderit perferendis id soluta debitis? In totam architecto repudiandae.
