@@ -2,9 +2,16 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/text-area"
 import { Button } from "@/components/ui/button"
 
-function Idea() {
+import { supabase } from "@/config/supabase"
+
+async function Idea() {
+
+const {
+    data: ideas,
+} = await supabase.from('ideas').select();
 
 return (
+    <>
     <form
     className="flex flex-col md:flex-row gap-10"
     >
@@ -25,6 +32,15 @@ return (
             </div>
         </div>
     </form>
+    <div>
+        <h1 className="text-2xl font-bold text-center">Ideas</h1>
+        <div className="flex flex-col">
+        {ideas && ideas.map((idea) => (
+            <div key={idea.id}>{idea.description}</div> 
+        )) }
+        </div>
+    </div>
+    </>
 )}
 
 export { Idea }
