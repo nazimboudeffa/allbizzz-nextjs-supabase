@@ -11,11 +11,10 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { IdeasRequest, IdeasRequestSchema } from "@/lib/schema";
-import { set } from "zod"
 
 type Idea = {
-    id: string
-    description: string
+    id: number;
+    description: string;
 }
 
 function Ideas( { serverIdeas } : { serverIdeas:  Idea[] }) {
