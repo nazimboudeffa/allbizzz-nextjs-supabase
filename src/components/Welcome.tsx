@@ -2,7 +2,7 @@ async function Welcome () {
 
   return (
     <>
-    <div className="container flex h-screen w-screen flex-col items-center justify-center">
+    <div className="container flex h-screen w-screen flex-col items-center justify-center flex-1">
         <h1 className="text-2xl font-semibold tracking-tight">
             Welcome to ALLBIZZZ
         </h1>
