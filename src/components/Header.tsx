@@ -121,8 +121,7 @@ function Header ( { session }: { session: Session | null } ) {
                     </svg>                 
                     }
                 </button>
-                </div>
-                <ThemeToggle />       
+                </div>    
             </div>
             </div>
         </div>
