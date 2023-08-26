@@ -112,7 +112,7 @@ return (
                     placeholder="Enter your idea here..."
                     {...register("description")}
                 />
-                {errors.text && errors.text?.message && (
+                {errors.description && errors.description?.message && (
                     <p className="text-sm text-destructive">
                         {errors.description?.message}
                     </p>
