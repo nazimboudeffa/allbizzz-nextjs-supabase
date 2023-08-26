@@ -38,7 +38,7 @@ const About = async () => {
                 Unleashing Creativity
                 </h2>
                 <p>
-                Whether you're an established business looking to expand online or an individual with a unique idea, our platform provides the tools to unleash your creativity. From customizable templates to advanced e-commerce solutions, you're equipped to create a distinctive online presence.
+                Whether you are an established business looking to expand online or an individual with a unique idea, our platform provides the tools to unleash your creativity. From customizable templates to advanced e-commerce solutions, you are equipped to create a distinctive online presence.
                 </p>
                 <h2>
                 Global Reach, Local Impact
@@ -62,13 +62,13 @@ const About = async () => {
                 Your Journey, Our Support
                 </h2>
                 <p>
-                Embarking on an online business journey can be challenging, but you're not alone. Our dedicated support team is here to assist you every step of the way, providing guidance, troubleshooting, and solutions to transform obstacles into opportunities.
+                Embarking on an online business journey can be challenging, but you are not alone. Our dedicated support team is here to assist you every step of the way, providing guidance, troubleshooting, and solutions to transform obstacles into opportunities.
                 </p>
                 <h2>
                 Start Your Digital Success Story
                 </h2>
                 <p>
-                Whether you are a visionary entrepreneur or a local business aiming to expand, our online business platform is your launchpad. The digital realm is full of promise, and we're here to help you turn that promise into profit. Join us today and embark on a journey of growth, innovation, and success.
+                Whether you are a visionary entrepreneur or a local business aiming to expand, our online business platform is your launchpad. The digital realm is full of promise, and we are here to help you turn that promise into profit. Join us today and embark on a journey of growth, innovation, and success.
                 </p>
             </div>
         </>
