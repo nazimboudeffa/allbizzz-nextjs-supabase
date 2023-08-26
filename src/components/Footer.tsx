@@ -9,7 +9,9 @@ function Footer () {
                 <p>Crafted with <span className="text-red-500">❤</span> on <a href="https://github.com/nazimboudeffa/business-nextjs-supabase"><u>GitHub</u></a></p> 
             </div>  
 
+            <div className="flex justify-center space-x-6 sm:order-2 sm:mt-0">
             <ThemeToggle />
+            </div>
             
             <div className="flex justify-center text-sm text-gray-500 sm:justify-end lg:mt-0 lg:text-right">
             <p>
