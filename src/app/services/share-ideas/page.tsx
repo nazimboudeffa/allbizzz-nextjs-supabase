@@ -1,5 +1,5 @@
 import Header from "@/components/Header"
-import { Idea } from "./Idea"
+import { Ideas } from "./Ideas"
 import { fontHeading } from "@/lib/fonts"
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -12,6 +12,11 @@ export default async function ShareIdeas() {
     const {
       data: { session },
     } = await supabase.auth.getSession();
+
+    const { data: { user } } = await supabase.auth.getUser()
+    const {
+        data: ideas,
+    } = await supabase.from('ideas').select().match({ user_id: user?.id });
 
     return (
         <>
@@ -29,7 +34,7 @@ export default async function ShareIdeas() {
             </div>
             </header>
             <section className="flex flex-col gap-10 mt-10 items-center">
-                {!session ? (<div>You must be loggedin</div>) : (<Idea />)}
+                {!session ? (<div>You must be loggedin</div>) : (<Ideas serverIdeas={ideas ?? []} />)}
             </section>
         </>
     )
