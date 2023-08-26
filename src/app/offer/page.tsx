@@ -17,6 +17,15 @@ const Services = async function () {
     const allServices = [
         {
             id: "0",
+            name: "Share you ideas",
+            description:
+                "Share ideas and get business partners.",
+            icon: <CheckCircle2 />,
+            color: "green",
+            link: "/services/share-ideas",
+        },
+        {
+            id: "1",
             name: "Affiliation",
             description:
                 "Create affiliation campaings.",
@@ -25,7 +34,7 @@ const Services = async function () {
             link: "/",
         },
         {
-            id: "1",
+            id: "2",
             name: "Marketing",
             description:
                 "Create marketing campaings.",
@@ -34,7 +43,7 @@ const Services = async function () {
             link: "/",
         },
         {
-            id: "2",
+            id: "3",
             name: "Crypto",
             description:
                 "Manage your cryptos.",
@@ -43,7 +52,7 @@ const Services = async function () {
             link: "/",
         },
         {
-            id: "3",
+            id: "4",
             name: "Trading",
             description:
                 "Manage your trading.",
@@ -51,15 +60,6 @@ const Services = async function () {
             color: "red",
             link: "/",
         },
-        {
-            id: "4",
-            name: "Share you ideas",
-            description:
-                "Share ideas and get business partners.",
-            icon: <CheckCircle2 />,
-            color: "green",
-            link: "/services/share-ideas",
-        }
     ]
     
     return (
