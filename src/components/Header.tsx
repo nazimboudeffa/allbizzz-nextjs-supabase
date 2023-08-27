@@ -2,7 +2,6 @@
 import Link from "next/link"
 import '@/lib/i18n';
 import { useTranslation } from 'react-i18next';
-import { ThemeToggle } from "@/components/theme-toggle"
 import { useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
@@ -29,8 +28,10 @@ function Header ( { session }: { session: Session | null } ) {
         console.error('ERROR:', error);
       }
 
-      router.push('/')
+      router.refresh()
     }
+
+    
 
     return (
         <header>
