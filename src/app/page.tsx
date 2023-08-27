@@ -14,19 +14,27 @@ async function Home () {
     data: { session },
   } = await supabase.auth.getSession();
 
-  return (
-    <>
-    <div className="min-h-screen flex flex-col justify-between">
-    <Header session = { session } />
-    { session ? (
+  if (session) {
+    return (
+      <>
+      <div className="min-h-screen flex flex-col justify-between">
+      <Header session = { session } />
       <Welcome />
-    ) : (
+      <Footer />
+      </div>
+      </>
+    )
+  } else {
+    return (
+      <>
+      <div className="min-h-screen flex flex-col justify-between">
+      <Header session = { session } />
       <Hero />
-    )}
-    <Footer />
-    </div>
-    </>
-  )
+      <Footer />
+      </div>
+      </>
+    )
+  }
 }
 
 export default Home
