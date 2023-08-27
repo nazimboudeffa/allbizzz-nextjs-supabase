@@ -5,6 +5,11 @@ import { fontHeading } from "@/lib/fonts"
 import { buttonVariants } from "@/components/ui/button"
 import Header from "@/components/Header"
 
+import Image from 'next/image'
+import kofi from "/public/donations/ko-fi-ar21.svg"
+import tipeee from "/public/donations/tipeee_logo_red.svg"
+import bmc from "/public/donations/bmc-full-logo.svg"
+
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
@@ -114,20 +119,25 @@ export default async function PricingPage() {
                     </div>
                 ))}
             </div>
-            <div className="mt-10 flex flex-col items-center gap-10 text-center">
+            <div className="mt-10 mb-10 flex flex-col items-center gap-10 text-center">
                 <h1
                     className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}
                 >
                     Donation methods and rules.
                 </h1>
-                <p className="max-w-[500px] text-lg text-muted-foreground sm:text-xl">
-                    Actually you can donate with <Link href="https://fr.tipeee.com/nazimboudeffa"><u>Tipeee</u></Link>, Paypal, BuyMeACoffee, Ko-fi, DogeCoin.
-                </p>
+                <div className="flex flex-wrap md:flex-row gap-3 justify-center">
+                    <Image src={tipeee} height={80} alt="tipee" />
+                    <Image src={bmc} height={80} alt="bmc" />
+                    <Image src={kofi} height={80} alt="kofi" />
+                </div>
                 <p className="max-w-[500px] text-lg text-muted-foreground sm:text-xl">
                     You have to notice that donations are not refundable and the service can stop at anytime.
                 </p>
                 <p className="max-w-[500px] text-lg text-muted-foreground sm:text-xl">
                     I am free you are free and we love free softwares. 
+                </p>
+                <p className="max-w-[500px] text-lg text-muted-foreground sm:text-xl">
+                    Just find my profile like anyone in the site. 
                 </p>
             </div>
         </>
