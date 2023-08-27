@@ -67,12 +67,15 @@ export function UserAuthForm() {
     }
 
     const handleSignInWithGoogle = async() => {
+        setIsGoogleLoading(true)
         await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
                 redirectTo: `${location.origin}/auth/callback`,
             },
         })
+        setIsGoogleLoading(false)
+        router.refresh()
     }
 
     return (

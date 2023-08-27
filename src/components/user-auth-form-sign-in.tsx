@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form"
 import { Loader2 } from "lucide-react"
 import { singInSchema } from "@/lib/validations"
 import * as z from "zod"
-import { supabase } from "@/config/supabase"
 
 import { cn } from "@/lib/cn"
 import { buttonVariants } from "@/components/ui/button"
