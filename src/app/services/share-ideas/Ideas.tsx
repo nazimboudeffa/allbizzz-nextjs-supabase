@@ -131,7 +131,7 @@ return (
             </div>
         </div>
     </form>
-    <div className="md:w-[500px] items-center">
+    <div className="w-full md:w-[500px] items-center">
         <h1 className="text-2xl font-bold mb-5">Your shared ideas</h1>
         <div className="flex flex-col">
         {ideas && ideas.map((idea) => (
