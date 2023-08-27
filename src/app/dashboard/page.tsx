@@ -1,5 +1,8 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import Stats from '@/components/Stats'
+import ChartLine from '@/components/ChartLine'
+import SideNav from '@/components/SideNav'
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
@@ -21,13 +24,12 @@ async function Dashboard () {
     <>
     <div className="min-h-screen flex flex-col justify-between">
     <Header session = { session } />
-    <div className="container flex flex-col items-center justify-center">
-        <h1 className="text-2xl font-semibold tracking-tight">
-            Your dashboard
-        </h1>
-        <p className="text-sm text-muted-foreground">
-            Here you will find your dashboard.
-        </p>
+    <div className="grid min-h-screen md:grid-cols-[auto_1fr] justify-center gap-4 overflow-hidden p-4">
+            <SideNav />
+            <div className="min-h-screen w-full bg-slate-300">
+                <Stats />
+                <ChartLine />
+            </div>
     </div>
     <Footer />
     </div>
