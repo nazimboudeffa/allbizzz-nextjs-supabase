@@ -31,14 +31,14 @@ function Welcome () {
 
   return (
     <>
-    <header className="mt-10 flex flex-col items-center gap-10 text-center">
+    <header className="flex flex-col items-center gap-10 text-center">
       <h1
         className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}
       >
-        Welcome to allbizz.
+        Welcome to allbizzz
       </h1>
       <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-        Everything starts here.
+        Your journey starts here
       </p>
     </header>
     <section className="flex flex-col items-center gap-10 text-center">
