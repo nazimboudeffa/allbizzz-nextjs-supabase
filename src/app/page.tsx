@@ -10,15 +10,13 @@ async function Home () {
   
   const supabase = createServerComponentClient({ cookies });
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+  const { data  } = await supabase.auth.getSession();
 
-  if (session) {
+  if (data?.session) {
     return (
       <>
       <div className="min-h-screen flex flex-col justify-between">
-      <Header session = { session } />
+      <Header session = { data.session } />
       <Welcome />
       <Footer />
       </div>
@@ -28,7 +26,7 @@ async function Home () {
     return (
       <>
       <div className="min-h-screen flex flex-col justify-between">
-      <Header session = { session } />
+      <Header session = { data.session } />
       <Hero />
       <Footer />
       </div>
