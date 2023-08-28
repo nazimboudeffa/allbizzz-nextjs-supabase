@@ -11,14 +11,14 @@ import { useRouter } from "next/navigation";
 
 function Header ( { session }: { session: Session | null } ) {
     
+    const supabase = createClientComponentClient();
+
     const router = useRouter()
 
     console.log(session)
 
     const { t, i18n } = useTranslation();
     const [open, setOpen] = useState<boolean>(false);
-
-    const supabase = createClientComponentClient();
 
     async function handleSignOut() {
       const { error } = await supabase.auth.signOut();
