@@ -6,6 +6,7 @@ import Welcome from '@/components/Welcome'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
+import sleep from 'sleep-promise';
 
 async function Home () {
 
@@ -14,6 +15,8 @@ async function Home () {
   const {
     data: { session },
   } = await supabase.auth.getSession();
+
+  await sleep(2000);
 
   if (!session) {
     return (
