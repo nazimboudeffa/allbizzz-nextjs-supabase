@@ -66,14 +66,29 @@ export function UserAuthForm() {
 
     const handleSignInWithGoogle = async() => {
         setIsGoogleLoading(true)
-        await supabase.auth.signInWithOAuth({
+
+        const { data, error } = await supabase.auth.signInWithOAuth({
             provider: 'google',
             options: {
                 redirectTo: `${location.origin}/auth/callback`,
             },
         })
+
+        console.log({ data, error });
+
         setIsGoogleLoading(false)
-        router.refresh()
+
+        if (!data) {
+            return toast({
+                title: "Something went wrong.",
+                description: "Your sign in request failed. Please try again.",
+                variant: "destructive",
+            })
+            
+        } else {
+
+            router.refresh()
+        }
     }
 
     return (
