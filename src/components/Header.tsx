@@ -2,7 +2,7 @@
 import Link from "next/link"
 import '@/lib/i18n';
 import { useTranslation } from 'react-i18next';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
@@ -31,7 +31,9 @@ function Header ( { session }: { session: Session | null } ) {
       router.refresh()
     }
 
-    router.refresh()    
+    useEffect(() => {
+        router.refresh()
+    }, [])
 
     return (
         <header>
