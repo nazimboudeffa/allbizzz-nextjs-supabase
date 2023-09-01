@@ -6,13 +6,19 @@ import Welcome from '@/components/Welcome'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
+import { useRouter } from 'next/navigation'
+
 async function Home () {
   
+  router = useRouter();
+
   const supabase = createServerComponentClient({ cookies });
 
   const {
     data: { session },
   } = await supabase.auth.getSession();
+
+  router.refresh()
 
   if (session) {
     return (
