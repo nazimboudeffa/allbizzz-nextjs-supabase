@@ -6,6 +6,7 @@ import Welcome from '@/components/Welcome'
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
 
+
 async function Home () {
 
   const supabase = createServerComponentClient({ cookies });
@@ -14,17 +15,7 @@ async function Home () {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (session) {
-    return (
-      <>
-      <div className="min-h-screen flex flex-col justify-between">
-      <Header session = { session } />
-      <Welcome />
-      <Footer />
-      </div>
-      </>
-    )
-  } else {
+  if (!session) {
     return (
       <>
       <div className="min-h-screen flex flex-col justify-between">
@@ -35,6 +26,16 @@ async function Home () {
       </>
     )
   }
+
+  return (
+    <>
+    <div className="min-h-screen flex flex-col justify-between">
+    <Header session = { session } />
+    <Welcome />
+    <Footer />
+    </div>
+    </>
+  )
 }
 
 export default Home
