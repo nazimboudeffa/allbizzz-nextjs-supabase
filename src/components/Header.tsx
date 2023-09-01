@@ -31,7 +31,7 @@ function Header ( { session }: { session: Session | null } ) {
       router.refresh()
     }
 
-    
+    router.refresh()    
 
     return (
         <header>
