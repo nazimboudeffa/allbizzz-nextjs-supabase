@@ -9,7 +9,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import type { Session } from '@supabase/auth-helpers-nextjs'
 import { useRouter } from "next/navigation";
 
-function Header ( { session }: { session: Session | null } ) {
+function Header ( { session } : { session: Session | null } ) {
     
     const supabase = createClientComponentClient();
 
@@ -30,10 +30,6 @@ function Header ( { session }: { session: Session | null } ) {
 
       router.refresh()
     }
-
-    useEffect(() => {
-        router.refresh()
-    }, [])
 
     return (
         <header>
