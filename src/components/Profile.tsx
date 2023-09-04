@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Loader2 } from "lucide-react"
@@ -11,42 +11,49 @@ import { buttonVariants } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-import { useRouter } from 'next/navigation';
-
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
-import { Profile, ProfileSchema } from "@/lib/schema";
+import { ProfileRequest, ProfileRequestSchema } from "@/lib/schema";
+
+type TProfile = {
+    id: string;
+    username: string;
+    firstname: string;
+    lastname: string;
+}   
 
 export default function Profile() {
 
     const supabase = createClientComponentClient();
 
-    const router = useRouter();
+    const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<Profile>({
-        resolver: zodResolver(ProfileSchema),
-        defaultValues: {
-            username: "",
-            firstname: "",
-            lastname: "",
+    } = useForm<ProfileRequest>({
+        resolver: zodResolver(ProfileRequestSchema),
+        defaultValues: async () => {
+            const { data: { user } } = await supabase.auth.getUser()
+            const {
+                data: profiles,
+            } = await supabase.from('profiles').select().match({ id: user?.id });
+            return {
+                username: profiles?.[0]?.username ?? "",
+                firstname: profiles?.[0]?.firstname ?? "",
+                lastname: profiles?.[0]?.lastname ?? "",
+            }
         },
     })
-
-    const [isLoading, setIsLoading] = useState<boolean>(false)
-
-    async function onSubmit(data : Profile) {
+    
+    async function onSubmit(data : TProfile) {
         setIsLoading(true)
 
         const { data: { user } } = await supabase.auth.getUser()
-        console.log({ user });
         const {
             data: profiles,
         } = await supabase.from('profiles').select().match({ id: user?.id });
-        console.log({ profiles });
 
         if (profiles != null) {
             
