@@ -1,40 +1,38 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import Hero from '@/components/Hero'
-import Welcome from '@/components/Welcome'
+import Messages from '@/components/Messages'
+import SideNav from '@/components/SideNav'
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
 import { cookies } from 'next/headers';
+import { redirect } from 'next/navigation';
 
-async function Home () {
+async function Dashboard () {
 
   const supabase = createServerComponentClient({ cookies });
-
   const {
     data: { session },
   } = await supabase.auth.getSession();
 
   if (!session) {
-    return (
-      <>
-      <div className="min-h-screen flex flex-col justify-between">
-      <Header session = { session } />
-      <Hero />
-      <Footer />
-      </div>
-      </>
-    )
+    redirect('/');
   }
+
 
   return (
     <>
     <div className="min-h-screen flex flex-col justify-between">
     <Header session = { session } />
-    <Welcome />
+    <div className="grid min-h-screen md:grid-cols-[auto_1fr] justify-center gap-4 overflow-hidden p-4">
+            <SideNav />
+            <div className="min-h-screen w-full bg-slate-300">
+                <Messages />
+            </div>
+    </div>
     <Footer />
     </div>
     </>
   )
 }
 
-export default Home
+export default Dashboard
