@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Loader2 } from "lucide-react"
@@ -16,7 +16,6 @@ import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 import { ProfileRequest, ProfileRequestSchema } from "@/lib/schema";
 
 type TProfile = {
-    id: string;
     username: string;
     firstname: string;
     lastname: string;
