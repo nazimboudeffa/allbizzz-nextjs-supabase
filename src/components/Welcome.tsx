@@ -19,7 +19,7 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/text-area"
 
 type Idea = {
   id: number;
@@ -56,7 +56,7 @@ function Welcome () {
       <h1
         className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}
       >
-        Welcome to allbizzz
+        Welcome to allbiiiz
       </h1>
       <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
         Your business journey starts here
@@ -85,10 +85,10 @@ function Welcome () {
                                     This message will be sent to the idea creator.
                                 </div>
                                 <div className="mt-2">
-                                    <Input
-                                        type="text"
-                                        id="message"
-                                        onChange={(e) => sendMessage(e.target.value)}
+                                    <Textarea
+                                        id="text"
+                                        rows={10}
+                                        className="text-md"
                                         placeholder="Enter your message..."
                                     />
                                 </div>
