@@ -24,6 +24,7 @@ import { Textarea } from "@/components/ui/text-area"
 type Idea = {
   id: number;
   description: string;
+  user_id: string;
 }
 
 function Welcome () {
@@ -31,9 +32,21 @@ function Welcome () {
   const supabase = createClientComponentClient();
   
   const [ideas, setIdeas] = useState<Idea[] | null>([])
+  const [content, setContent] = useState<string>("")
+  const [sender, setSender] = useState<string | undefined>("") 
 
-  const sendMessage = async (message: String) => {
+  const sendMessage = async (receiver: string) => {
+    const message = {
+      sender: sender,
+      receiver: receiver,
+      content: content
+    }
     console.log(message)
+    const { error } = await supabase.from('messages').insert(message)
+
+    if (error) {         
+      console.error(error)
+    }
   }
   
 
@@ -42,12 +55,18 @@ function Welcome () {
       const {
         data: ideas,
       } = await supabase.from('ideas').select()
-
-      console.log(ideas)
-
       setIdeas(ideas)
     }
+
+    const setSenderId = async () => {
+      const { data } = await supabase.auth.getUser();
+      const senderId = data.user?.id;
+      setSender(senderId)
+    };
+
     getIdeas()
+    setSenderId()
+    
   }, [])         
 
   return (
@@ -65,6 +84,7 @@ function Welcome () {
     <section className="flex flex-col items-center gap-10 text-center">
         <div className="ml-5 mr-5 mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
         {ideas?.map((idea) => (
+          sender === idea.user_id ? null :
           <div key={idea.id} className="flex flex-col p-5 shadow rounded-[12px] dark:shadow-slate-900">
             <div className="text-xl mb-2">{idea.description}</div>
             <div className="flex flex-row justify-between">
@@ -90,13 +110,14 @@ function Welcome () {
                                         rows={10}
                                         className="text-md"
                                         placeholder="Enter your message..."
+                                        onChange={(e) => setContent(e.target.value)}
                                     />
                                 </div>
                             </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                             <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction>Send</AlertDialogAction>
+                            <AlertDialogAction><button onClick={()=>sendMessage(idea.user_id)}>Send</button></AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
