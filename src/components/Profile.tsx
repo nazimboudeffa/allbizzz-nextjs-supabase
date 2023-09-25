@@ -26,6 +26,7 @@ export default function Profile() {
     const supabase = createClientComponentClient();
 
     const [isLoading, setIsLoading] = useState<boolean>(false)
+    const [errorUsername, setErrorUsername] = useState<string | null>(null)
 
     const {
         register,
@@ -54,7 +55,16 @@ export default function Profile() {
             data: profiles,
         } = await supabase.from('profiles').select().match({ id: user?.id });
 
-        if (profiles != null) {
+        const {
+            data: usernames,
+        } = await supabase.from('profiles').select().match({ username: data.username });
+
+        if (usernames != null && usernames.length > 0) {
+            setErrorUsername('Username already exists')
+            setIsLoading(false)
+            return
+        }
+        else if (profiles != null) {
             
             const { error } = await supabase
             .from('profiles')
@@ -107,6 +117,11 @@ export default function Profile() {
                         {errors?.username && (
                             <p className="px-1 text-xs text-red-600">
                                 {errors.username.message}
+                            </p>
+                        )}
+                        {errorUsername && (
+                            <p className="px-1 text-xs text-red-600">
+                                {errorUsername}
                             </p>
                         )}
                         <Label className="sr-only" htmlFor="firstname">
