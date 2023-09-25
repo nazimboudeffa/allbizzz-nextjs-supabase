@@ -67,7 +67,7 @@ function Welcome () {
     getIdeas()
     setSenderId()
     
-  }, [])         
+  }, [supabase])         
 
   return (
     <>

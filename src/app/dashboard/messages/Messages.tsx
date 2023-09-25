@@ -32,7 +32,7 @@ function Messages() {
         }
         getSentMessages()
         getReceivedMessages()
-    }, [])
+    }, [supabase])
 
     return (
         <>
