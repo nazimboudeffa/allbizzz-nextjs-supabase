@@ -17,24 +17,10 @@ export default async function AllMessages() {
     return (
         <>
             <Header session = { session } />
-            <div className="grid min-h-screen md:grid-cols-[auto_1fr] justify-center gap-4 overflow-hidden p-4">
+            <div className="grid h-[calc(100vh-70px)] md:grid-cols-[auto_1fr] justify-center gap-4 overflow-hidden p-4">
             <SideNav />
-            <div className="min-h-screen w-full">
-              <header className="mt-10 flex flex-col items-center gap-10 text-center">
-              <div className="flex max-w-[980px] flex-col gap-2">
-                  <h1
-                      className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}
-                  >
-                      Your messages
-                  </h1>
-                  <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-                      Here you can find your messages.
-                  </p>
-              </div>
-              </header>
-              <section className="flex flex-col gap-10 mt-10 items-center">
+            <div className="h-full w-full">
                   {!session ? (<div>You must be loggedin</div>) : (<Messages />)}
-              </section>
             </div>
             </div>
 
