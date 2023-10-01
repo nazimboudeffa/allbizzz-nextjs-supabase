@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { fontHeading } from "@/lib/fonts";
 import { Mail, Flag } from 'lucide-react';
 
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Alert, AlertDescription } from "@/components/ui/radix-alert"
 import {
     AlertDialog,
     AlertDialogAction,
@@ -17,9 +17,9 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
-import { Textarea } from "@/components/ui/text-area"
+} from "@/components/ui/radix-alert-dialog"
+import { Button } from "@/components/ui/radix-button"
+import { Textarea } from "@/components/ui/radix-text-area"
 
 type Idea = {
   id: number;

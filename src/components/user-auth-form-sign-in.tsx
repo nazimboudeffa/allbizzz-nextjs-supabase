@@ -9,10 +9,10 @@ import { singInSchema } from "@/lib/validations"
 import * as z from "zod"
 
 import { cn } from "@/lib/cn"
-import { buttonVariants } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { toast } from "@/components/ui/use-toast"
+import { buttonVariants } from "@/components/ui/radix-button"
+import { Input } from "@/components/ui/radix-input"
+import { Label } from "@/components/ui/radix-label"
+import { toast } from "@/components/ui/radix-use-toast"
 import { Icons } from "@/components/icons"
 
 import { useRouter } from 'next/navigation';

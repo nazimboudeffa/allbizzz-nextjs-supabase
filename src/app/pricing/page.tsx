@@ -2,7 +2,7 @@ import Link from "next/link"
 import { CheckCircle2, Coffee, Heart, CircleDollarSign } from "lucide-react"
 
 import { fontHeading } from "@/lib/fonts"
-import { buttonVariants } from "@/components/ui/button"
+import { buttonVariants } from "@/components/ui/radix-button"
 import Header from "@/components/Header"
 
 import Image from 'next/image'
