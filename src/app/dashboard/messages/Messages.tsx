@@ -32,7 +32,7 @@ function Messages() {
     return (
         <>
         <main className="flex flex-1 flex-row gap-4 p-4 md:gap-8 md:p-6">
-        <div className="hidden lg:block border-l bg-zinc-100/40 dark:bg-zinc-800/40">
+        <div className="hidden lg:block bg-zinc-100/40 dark:bg-zinc-800/40">
             <div className="h-20 rounded-lg border border-zinc-200 border-dashed dark:border-zinc-800">
             <div className="p-4 flex items-center gap-4">
               <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
