@@ -3,6 +3,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button"
 import Image from "next/image";
+import { toast } from 'sonner';
 
 type Message = {
     id: number;
@@ -27,11 +28,60 @@ type Profile = {
 function Messages() {
 
     const [conversations, setConversations] = useState<Conversations[] | null>([])
-    const [allMessages, setAllMessages] = useState<Message[] | null>([])
+    const [messages, setMessages] = useState<Message[] | null>([])
+    const [profile, setProfile] = useState<Profile | null>(null)
+    const [content, setContent] = useState<string>("")
+    const [conversationId, setConversationId] = useState<number>(0)
 
     const supabase = createClientComponentClient();
 
+    
+    const fetchMessages = async (conversationId : number) => {
+      const { data, error } = await supabase.from('messages').select().match({ conversation_id: conversationId });
+      if (error) {
+          console.error(error);
+      }
+      data?.forEach(async (message) => {
+        const { data: profileData } = await supabase.from('profiles').select().eq('id', message.sender);
+        message.sender = profileData?.length === 0 ? 'Anonymous' : profileData?.[0]?.username;
+      });
+      setMessages(data);
+      console.log(data);
+    }
+
+    const handleClick = (id : number) => {
+      fetchMessages(id);
+      setConversationId(id);
+    }
+
+    const sendMessage = async () => {
+      if (profile?.id === undefined) {
+        toast('Please update your profile to send messages')
+        return;
+      }
+      const message = {
+        conversation_id: conversationId,
+        sender: profile?.id,
+        content: content
+      };
+      const { error: messageError } = await supabase.from('messages').insert(message);
+      if (messageError) {
+        console.error(messageError);
+      } else {
+        toast('Message have been sent, please reload')
+      }    
+    };
+
     useEffect(() => {
+
+        const fetchProfile = async () => {
+          const { data, error } = await supabase.from('profiles').select().eq('id', (await supabase.auth.getUser()).data?.user?.id);
+          if (error) {
+            console.error(error);
+          }
+          console.log(data);
+          setProfile(data?.[0]);
+        };
 
         const fetchConversations = async () => {
           const { data, error } = await supabase.from('conversations').select();
@@ -52,62 +102,64 @@ function Messages() {
           setConversations(data);
         };
 
-        const fetchMessages = async () => {
-            const { data, error } = await supabase.from('messages').select();
-            if (error) {
-                console.error(error);
-            }
-            setAllMessages(data);
-        }
-
         fetchConversations();
-        fetchMessages();
-        
+        fetchProfile();
+       
     }, [supabase])
 
     return (
         <>
         <main className="flex flex-1 flex-row gap-4 p-4 md:gap-8 md:p-6">
         <div className="hidden lg:block bg-zinc-100/40 dark:bg-zinc-800/40">
-           {conversations && conversations?.map((conversation) => (
-             <div key={conversation.id} className="h-20 rounded-lg border border-zinc-200 border-dashed dark:border-zinc-800">
-             <div className="p-4 flex items-center gap-4">
-               <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
-                 <div>
-                 <div className="font-semibold text-zinc-800 dark:text-zinc-50">{conversation.participants[0].substring(0, 8).trimEnd() + "..."}</div>
-                 </div>
-             </div>
-             </div>
-            ))}
-        </div>
-        <div className="flex flex-col flex-1">
-          <div className="flex-1 rounded-lg border border-zinc-200 border-dashed dark:border-zinc-800">
-            <div className="p-4 flex items-start gap-4 justify-end">
-              <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
-              <div className="flex flex-col gap-2">
-                <div className="font-semibold text-zinc-800 dark:text-zinc-50">Sender Name</div>
-                <div className="text-sm text-zinc-600 dark:text-zinc-400">Hello, how can I help you today?</div>
-              </div>
-            </div>
-            <div className="p-4 flex items-start gap-4 justify-start">
-              <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
-              <div className="flex flex-col gap-2">
-                <div className="font-semibold text-zinc-800 dark:text-zinc-50">Receiver Name</div>
-                <div className="text-sm text-zinc-600 dark:text-zinc-400">
-                  I am looking for some information about your services.
+          {conversations?.map((conversation) => (
+            <div key={conversation.id} className="h-20 rounded-lg border border-zinc-200 border-dashed dark:border-zinc-800 cursor-pointer" onClick={() => handleClick(conversation.id)}>
+              <div className="p-4 flex items-center gap-4">
+                <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
+                <div>
+                  <div className="font-semibold text-zinc-800 dark:text-zinc-50">{conversation.participants[0]?.substring(0, 8).trimEnd() + "..."}</div>
                 </div>
               </div>
             </div>
+          ))}
+        </div>
+        <div className="flex flex-col flex-1">
+          <div className="flex-1 rounded-lg border border-zinc-200 border-dashed dark:border-zinc-800">
+          
+          {messages?.map((message) => (
+            (message.sender === profile?.id) ?         
+            <div key={message.id} className="p-4 flex items-start gap-4 justify-start">
+              <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
+              <div className="flex flex-col gap-2">
+                <div className="font-semibold text-zinc-800 dark:text-zinc-50">Me</div>
+                <div className="text-sm text-zinc-600 dark:text-zinc-400">
+                  {message.content}
+                </div>
+              </div>
+            </div>
+            :
+            <div key={message.id} className="p-4 flex items-start gap-4 justify-end">
+              <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
+              <div className="flex flex-col gap-2">
+                <div className="font-semibold text-zinc-800 dark:text-zinc-50">{message.sender}</div>
+                <div className="text-sm text-zinc-600 dark:text-zinc-400">
+                  {message.content}
+                </div>
+              </div>
+            </div>
+          ))}
+        
           </div>
           <div className="flex gap-2 items-center mt-4">
             <textarea
               className="flex-1 h-10 p-2 rounded-lg border border-zinc-200 dark:border-zinc-800 dark:bg-zinc-800 dark:text-zinc-50 overflow-hidden resize-none"
               placeholder="Type your message here"
+              onChange={(e) => setContent(e.target.value)}
             />
             <Button
               className="py-2 px-4 rounded-lg text-white bg-zinc-600 dark:bg-zinc-400 hover:bg-zinc-700 dark:hover:bg-zinc-500"
               type="submit"
               variant="default"
+              onClick={()=>sendMessage()}
             >
               Send
             </Button>
