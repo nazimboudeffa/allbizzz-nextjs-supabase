@@ -1,9 +1,9 @@
 'use client'
 import { useEffect, useState } from "react"
 
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/text-area"
-import { Button } from "@/components/ui/button"
+import { Label } from "@/components/ui/radix-label"
+import { Textarea } from "@/components/ui/radix-text-area"
+import { Button } from "@/components/ui/radix-button"
 import { Trash2, Loader2 } from 'lucide-react';
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";

@@ -7,9 +7,9 @@ import { useForm } from "react-hook-form"
 import { Loader2 } from "lucide-react"
 
 import { cn } from "@/lib/cn"
-import { buttonVariants } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { buttonVariants } from "@/components/ui/radix-button"
+import { Input } from "@/components/ui/radix-input"
+import { Label } from "@/components/ui/radix-label"
 
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
