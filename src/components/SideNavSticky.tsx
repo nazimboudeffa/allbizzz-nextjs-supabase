@@ -96,6 +96,28 @@ export default function SideNavSticky() {
                                     Messages
                                     <div className="ml-auto bg-zinc-200 dark:bg-zinc-800 rounded-full p-1 text-xs">3</div>
                                     </Link>
+                                    <Link
+                                        href="/dashboard/profile"
+                                        className="flex items-center gap-3 rounded-lg px-3 py-2 text-zinc-500 transition-all hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-50"
+                                        >
+                                        <svg
+                                        className=" h-4 w-4"
+                                        fill="none"
+                                        height="24"
+                                        stroke="currentColor"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        strokeWidth="2"
+                                        viewBox="0 0 24 24"
+                                        width="24"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z" />
+                                        </svg>
+
+                                
+                                        <span className="text-sm font-medium"> Profile </span>
+                                    </Link>
                                 </nav>
                                 </div>
                             </div>
