@@ -27,6 +27,11 @@ type Idea = {
   user_id: string;
 }
 
+type Conversation = {
+  id: number;
+  participants: string[];
+}
+
 function Welcome () {
 
   const supabase = createClientComponentClient();
@@ -36,18 +41,27 @@ function Welcome () {
   const [sender, setSender] = useState<string | undefined>("") 
 
   const sendMessage = async (receiver: string) => {
-    const message = {
-      sender: sender,
-      receiver: receiver,
-      content: content
+    const { data } = await supabase.from('conversations').select().eq('participants', [sender, receiver] || [receiver, sender]);
+    console.log(data);
+    if (data?.length === 0) {
+      const conversation = {
+        participants: [sender, receiver]
+      };
+      const { data: conversationData, error: conversationError } = await supabase.from('conversations').insert(conversation).select('id');
+      if (conversationError) {
+        console.error(conversationError);
+      }
+      const message = {
+        conversation_id: conversationData && conversationData[0]?.id,
+        sender: sender,
+        content: content
+      };
+      const { error: messageError } = await supabase.from('messages').insert(message);
+      if (messageError) {
+        console.error(messageError);
+      }
     }
-    console.log(message)
-    const { error } = await supabase.from('messages').insert(message)
-
-    if (error) {         
-      console.error(error)
-    }
-  }
+  };
   
 
   useEffect(() => {
@@ -122,7 +136,7 @@ function Welcome () {
                     </AlertDialogContent>
                 </AlertDialog>
               </div>
-              <Button>
+              <Button className="bg-zinc-500 hover:bg-red-500">
                 <Flag />
               </Button>
             </div>
