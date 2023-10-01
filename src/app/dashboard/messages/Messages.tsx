@@ -32,6 +32,7 @@ function Messages() {
     const [profile, setProfile] = useState<Profile | null>(null)
     const [content, setContent] = useState<string>("")
     const [conversationId, setConversationId] = useState<number>(0)
+    const [loadingConversations, setLoadingConversations] = useState<boolean>(false)
 
     const supabase = createClientComponentClient();
 
@@ -41,10 +42,7 @@ function Messages() {
       if (error) {
           console.error(error);
       }
-      data?.forEach(async (message) => {
-        const { data: profileData } = await supabase.from('profiles').select().eq('id', message.sender);
-        message.sender = profileData?.length === 0 ? 'Anonymous' : profileData?.[0]?.username;
-      });
+      data?.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
       setMessages(data);
       console.log(data);
     }
@@ -84,6 +82,7 @@ function Messages() {
         };
 
         const fetchConversations = async () => {
+          setLoadingConversations(true);
           const { data, error } = await supabase.from('conversations').select();
           if (error) {
             console.error(error);
@@ -93,26 +92,31 @@ function Messages() {
             console.error(userError);
           }
           console.log(userData);
-          data?.forEach(async (conversation) => {
+          data?.forEach((conversation) => {
             conversation.participants = conversation.participants.filter((participant: string) => participant !== userData?.user?.id);
-            const { data: profileData } = await supabase.from('profiles').select().eq('id', conversation.participants);
-            conversation.participants = profileData?.length === 0 ? 'Anonymous' : profileData?.[0]?.username;
           });
           console.log(data);
           setConversations(data);
+          setLoadingConversations(false);
         };
 
         fetchConversations();
         fetchProfile();
        
-    }, [supabase])
+    }, [supabase, setConversations, setProfile])
 
     return (
         <>
         <main className="flex flex-1 flex-row gap-4 p-4 md:gap-8 md:p-6">
         <div className="hidden lg:block bg-zinc-100/40 dark:bg-zinc-800/40">
-          {conversations?.map((conversation) => (
-            <div key={conversation.id} className="h-20 rounded-lg border border-zinc-200 border-dashed dark:border-zinc-800 cursor-pointer" onClick={() => handleClick(conversation.id)}>
+          {
+          loadingConversations && 
+          <div className="h-20 w-60 flex justify-center items-center">
+            <div className="h-12 w-12 rounded-full animate-spin border-2 border-solid border-blue-500 border-t-transparent"></div>
+          </div>
+          }
+          {!loadingConversations && conversations?.map((conversation) => (
+            <div key={conversation.id} className="h-20 w-60 rounded-lg border border-zinc-200 border-dashed dark:border-zinc-800 cursor-pointer" onClick={() => handleClick(conversation.id)}>
               <div className="p-4 flex items-center gap-4">
                 <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
                 <div>
