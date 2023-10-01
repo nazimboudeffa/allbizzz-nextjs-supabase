@@ -5,6 +5,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 
 import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from 'sonner';
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -32,6 +33,7 @@ export default async function RootLayout({
             enableSystem
         >
         {children}
+        <Toaster />
         </ThemeProvider>
         </body>
     </html>

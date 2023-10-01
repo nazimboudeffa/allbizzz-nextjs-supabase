@@ -11,6 +11,8 @@ import { buttonVariants } from "@/components/ui/radix-button"
 import { Input } from "@/components/ui/radix-input"
 import { Label } from "@/components/ui/radix-label"
 
+import { toast } from 'sonner';
+
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs';
 
 import { ProfileRequest, ProfileRequestSchema } from "@/lib/schema";
@@ -51,6 +53,7 @@ export default function Profile() {
         setIsLoading(true)
 
         const { data: { user } } = await supabase.auth.getUser()
+
         const {
             data: profiles,
         } = await supabase.from('profiles').select().match({ id: user?.id });
@@ -64,7 +67,8 @@ export default function Profile() {
             setIsLoading(false)
             return
         }
-        else if (profiles != null) {
+        
+        if (profiles?.length !== 0) {
             
             const { error } = await supabase
             .from('profiles')
@@ -76,6 +80,8 @@ export default function Profile() {
             .eq('id', user?.id)
 
             console.log({ error });
+
+            toast('Profile updated')
 
         } else {
 
@@ -89,6 +95,8 @@ export default function Profile() {
             })
 
             console.log({ error });
+
+            toast('Profile created')
 
         }
 

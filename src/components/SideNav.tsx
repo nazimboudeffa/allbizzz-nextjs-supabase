@@ -70,7 +70,6 @@ export default function SideNav() {
                             <path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z" />
                             </svg>
                             Messages
-                            <div className="ml-auto bg-zinc-200 dark:bg-zinc-800 rounded-full p-1 text-xs">3</div>
                         </Link>
                         <Link
                             href="/dashboard/profile"
