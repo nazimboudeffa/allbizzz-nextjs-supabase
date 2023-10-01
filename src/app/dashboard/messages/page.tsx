@@ -1,6 +1,6 @@
 import Header from "@/components/Header"
 import { Messages } from "./Messages"
-import SideNav2 from "@/components/SideNav2"
+import SideNav from "@/components/SideNav"
 import SideNavSticky from "@/components/SideNavSticky"
 
 import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
@@ -18,7 +18,7 @@ export default async function AllMessages() {
         <>
             <Header session = { session } />
             <div className="grid h-screen min-h-screen w-full overflow-hidden md:grid-cols-[auto_1fr]">
-                <SideNav2 />
+                <SideNav />
                 <div className="flex flex-col">
                     <SideNavSticky />
                     {!session ? (<div>You must be loggedin</div>) : (<Messages />)}                  
