@@ -43,7 +43,7 @@ function Welcome () {
   const sendMessage = async (receiver: string) => {
     const { data } = await supabase.from('conversations').select().eq('participants', [sender, receiver] || [receiver, sender]);
     console.log(data);
-    if (data?.length === 0) {
+    if (!data || data.length === 0) {
       const conversation = {
         participants: [sender, receiver]
       };
@@ -51,6 +51,7 @@ function Welcome () {
       if (conversationError) {
         console.error(conversationError);
       }
+      console.log(conversationData);
       const message = {
         conversation_id: conversationData && conversationData[0]?.id,
         sender: sender,
