@@ -18,6 +18,8 @@ import {
     AlertDialogTrigger,
 } from "@/components/ui/radix-alert-dialog"
 
+import { toast } from 'sonner';
+
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -57,7 +59,7 @@ const onSubmit = async (data: IdeasRequest) => {
     } = await supabase.from('ideas').select().match({ user_id: user?.id });
 
     if (ideas != null && ideas.length >= 3) {
-        alert('You can only share 3 ideas')
+        toast.error('You can only share 3 ideas')
         setProcessing(false)
         return
     }
@@ -89,7 +91,7 @@ const handleDelete = async (id : number) => {
     }
 }
 
-const [ideas, setIdeas] = useState<Idea[] | null>([])
+  const [ideas, setIdeas] = useState<Idea[] | null>([])
   const [content, setContent] = useState<string>("")
   const [sender, setSender] = useState<string | undefined>("") 
 
@@ -157,6 +159,7 @@ useEffect(() => {
 
 return (
     <>
+    <div className="flex flex-col md:flex-row gap-10">
     <form 
     onSubmit={handleSubmit(onSubmit)}
     className="flex flex-col md:flex-row gap-10"
@@ -202,8 +205,10 @@ return (
         ))}
         </div>
     </div>
+    </div>
     <section className="flex flex-col items-center gap-10 text-center">
-        <div className="ml-5 mr-5 mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
+        <h1 className="text-2xl font-bold">What others are sharing</h1>
+        <div className="ml-5 mr-5 mt-5 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
         {ideas?.map((idea) => (
           sender === idea.user_id ? null :
           <div key={idea.id} className="flex flex-col p-5 shadow rounded-[12px] dark:shadow-slate-900">
