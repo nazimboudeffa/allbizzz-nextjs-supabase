@@ -29,7 +29,7 @@ export default async function ShareIdeas() {
                     Share your ideas
                 </h1>
                 <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-                    Start by typing some text that describe your business idea. It will be displayed in the welcome page.
+                    Start by typing some text that describe your business idea.
                 </p>
             </div>
             </header>

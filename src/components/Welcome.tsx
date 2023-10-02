@@ -1,88 +1,9 @@
 'use client'
-
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useEffect, useState } from "react";
-
 import { fontHeading } from "@/lib/fonts";
-import { Mail, Flag } from 'lucide-react';
-
-import { Alert, AlertDescription } from "@/components/ui/radix-alert"
-import {
-    AlertDialog,
-    AlertDialogAction,
-    AlertDialogCancel,
-    AlertDialogContent,
-    AlertDialogDescription,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogTitle,
-    AlertDialogTrigger,
-} from "@/components/ui/radix-alert-dialog"
-import { Button } from "@/components/ui/radix-button"
-import { Textarea } from "@/components/ui/radix-text-area"
-
-type Idea = {
-  id: number;
-  description: string;
-  user_id: string;
-}
-
-type Conversation = {
-  id: number;
-  participants: string[];
-}
+import Link from "next/link";
+import ExpandingArrow from "@/components/expending-arrow";
 
 function Welcome () {
-
-  const supabase = createClientComponentClient();
-  
-  const [ideas, setIdeas] = useState<Idea[] | null>([])
-  const [content, setContent] = useState<string>("")
-  const [sender, setSender] = useState<string | undefined>("") 
-
-  const sendMessage = async (receiver: string) => {
-    const { data } = await supabase.from('conversations').select().eq('participants', [sender, receiver] || [receiver, sender]);
-    console.log(data);
-    if (!data || data.length === 0) {
-      const conversation = {
-        participants: [sender, receiver]
-      };
-      const { data: conversationData, error: conversationError } = await supabase.from('conversations').insert(conversation).select('id');
-      if (conversationError) {
-        console.error(conversationError);
-      }
-      console.log(conversationData);
-      const message = {
-        conversation_id: conversationData && conversationData[0]?.id,
-        sender: sender,
-        content: content
-      };
-      const { error: messageError } = await supabase.from('messages').insert(message);
-      if (messageError) {
-        console.error(messageError);
-      }
-    }
-  };
-  
-
-  useEffect(() => {
-    const getIdeas = async () => {
-      const {
-        data: ideas,
-      } = await supabase.from('ideas').select()
-      setIdeas(ideas)
-    }
-
-    const setSenderId = async () => {
-      const { data } = await supabase.auth.getUser();
-      const senderId = data.user?.id;
-      setSender(senderId)
-    };
-
-    getIdeas()
-    setSenderId()
-    
-  }, [supabase])         
 
   return (
     <>
@@ -96,54 +17,16 @@ function Welcome () {
         Your business journey starts here
       </p>
     </header>
-    <section className="flex flex-col items-center gap-10 text-center">
-        <div className="ml-5 mr-5 mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
-        {ideas?.map((idea) => (
-          sender === idea.user_id ? null :
-          <div key={idea.id} className="flex flex-col p-5 shadow rounded-[12px] dark:shadow-slate-900">
-            <div className="text-xl mb-2">{idea.description}</div>
-            <div className="flex flex-row justify-between">
-              <div>
-                <AlertDialog>
-                    <AlertDialogTrigger asChild>
-                        <Button>
-                          <Mail />
-                        </Button>
-                    </AlertDialogTrigger>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>
-                                Write a message
-                            </AlertDialogTitle>
-                            <AlertDialogDescription>
-                                <div>
-                                    This message will be sent to the idea creator.
-                                </div>
-                                <div className="mt-2">
-                                    <Textarea
-                                        id="text"
-                                        rows={10}
-                                        className="text-md"
-                                        placeholder="Enter your message..."
-                                        onChange={(e) => setContent(e.target.value)}
-                                    />
-                                </div>
-                            </AlertDialogDescription>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                            <AlertDialogAction><button onClick={()=>sendMessage(idea.user_id)}>Send</button></AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
-              </div>
-              <Button className="bg-zinc-500 hover:bg-red-500">
-                <Flag />
-              </Button>
-            </div>
-          </div>
-        ))}
-        </div>
+    <section>
+      <Link
+        href="/services/share-ideas"
+        className="group mx-auto flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-gray-200 bg-white px-7 py-2 shadow-[inset_10px_-50px_94px_0_rgb(199,199,199,0.1)] backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50"
+      >
+        <p className="text-sm font-semibold text-gray-700">
+          Start by sharing a business idea
+        </p>
+        <ExpandingArrow className="-ml-1 h-3.5 w-3.5" />
+      </Link>
     </section>
     </>
   )
