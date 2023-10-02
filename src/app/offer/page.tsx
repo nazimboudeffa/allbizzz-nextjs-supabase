@@ -60,6 +60,15 @@ const Services = async function () {
             color: "red",
             link: "/",
         },
+        {
+            id: "5",
+            name: "SEO",
+            description:
+                "Manage your sites.",
+            icon: <XCircle />,
+            color: "red",
+            link: "/",
+        },
     ]
     
     return (
