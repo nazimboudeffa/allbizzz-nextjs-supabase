@@ -75,7 +75,7 @@ const Services = async function () {
                 We provide services, tools and features to help you grow your business.
             </p>
         </header>
-        <section className="flex flex-col items-center gap-10 text-center">
+        <section className="flex flex-col items-center gap-10">
         <div className="ml-5 mr-5 mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
             {allServices.map((service) => (
                 <div
@@ -89,7 +89,7 @@ const Services = async function () {
                         <span className={`text-${service.color}-500 dark:text-${service.color}-700`}>
                             {service.icon}
                         </span>
-                        <div className="relative after:absolute after:bottom-0 after:left-0 after:h-[1px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 after:ease-in-out hover:after:origin-bottom-left hover:after:scale-x-100">
+                        <div className="relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:origin-bottom-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 after:ease-in-out hover:after:origin-bottom-left hover:after:scale-x-100">
                             {service.name}
                         </div>
                     </Link>
