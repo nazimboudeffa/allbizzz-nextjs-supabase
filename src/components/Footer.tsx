@@ -15,7 +15,7 @@ function Footer () {
                 
                 <div className="flex justify-center text-sm text-gray-500 sm:justify-end lg:mt-0 lg:text-right">
                 <p>
-                    Copyright &copy; 2023. All rights reserved to the creators.
+                    &copy; 2023 Allbiiiz.com
                 </p>
                 </div>
             </div>
