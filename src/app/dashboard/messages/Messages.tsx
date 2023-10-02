@@ -36,8 +36,8 @@ function Messages() {
 
     const supabase = createClientComponentClient();
 
-    const fetchProfile = async (participant : string[]) => {
-      const { data, error } = await supabase.from('profiles').select().eq('id', participant[0]);
+    const fetchProfile = async (participant : string) => {
+      const { data, error } = await supabase.from('profiles').select().eq('id', participant);
       if (error) {
         console.error(error);
       }
@@ -56,7 +56,7 @@ function Messages() {
       }
       data?.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
       for (const message of data!) {
-        message.sender = await fetchProfile([message.sender]);
+        message.sender = await fetchProfile(message.sender);
       }
       setMessages(data);
       console.log(data);
@@ -93,7 +93,11 @@ function Messages() {
             console.error(error);
           }
           console.log(data);
-          setProfile(data?.[0]);
+          if (data?.length !== 0) {
+            setProfile(data?.[0]);
+          } else {
+            setProfile(null);
+          }       
         };
 
         const fetchParticipantProfile = async (participant : string[]) => {
@@ -163,7 +167,7 @@ function Messages() {
           <div className="flex-1 rounded-lg border border-zinc-200 border-dashed dark:border-zinc-800">
           
           {messages?.map((message) => (
-            (message.sender === profile?.username || message.sender === 'Anonymous') ?         
+            (message.sender === profile?.username) ?         
             <div key={message.id} className="p-4 flex items-start gap-4 justify-start">
               <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
               <div className="flex flex-col gap-2">
@@ -177,7 +181,7 @@ function Messages() {
             <div key={message.id} className="p-4 flex items-start gap-4 justify-end cursor-pointer">
               <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
               <div className="flex flex-col gap-2">
-                <div className="font-semibold text-zinc-800 dark:text-zinc-50">{message.sender == 'Anonymous' ? 'Anonymous' : message.sender.substring(0, 9).trimEnd() + "..."}</div>
+                <div className="font-semibold text-zinc-800 dark:text-zinc-50">{message.sender}</div>
                 <div className="text-sm text-zinc-600 dark:text-zinc-400">
                   {message.content}
                 </div>

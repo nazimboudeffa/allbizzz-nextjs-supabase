@@ -25,6 +25,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { IdeasRequest, IdeasRequestSchema } from "@/lib/schema";
+import { t } from "i18next"
 
 type Idea = {
     id: number;
