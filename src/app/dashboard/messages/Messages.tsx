@@ -11,6 +11,7 @@ type Message = {
     sender: string;
     content: string;
     createdAt: string;
+    senderUsername: string;
   }
 
 type Conversations = {
@@ -56,7 +57,7 @@ function Messages() {
       }
       data?.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime());
       for (const message of data!) {
-        message.sender = await fetchProfile(message.sender);
+        message.senderUsername = await fetchProfile(message.sender);
       }
       setMessages(data);
       console.log(data);
@@ -68,7 +69,7 @@ function Messages() {
     }
 
     const sendMessage = async () => {
-      if (profile?.id === undefined) {
+      if (profile?.username === "Anonymous") {
         toast('Please update your profile to send messages')
         return;
       }
@@ -88,7 +89,12 @@ function Messages() {
     useEffect(() => {
 
         const fetchUserProfile = async () => {
-          const { data, error } = await supabase.from('profiles').select().eq('id', (await supabase.auth.getUser()).data?.user?.id);
+          const { data: userData, error: userError } = await supabase.auth.getUser();
+          if (userError) {
+            console.error(userError);
+          }
+          console.log(userData);
+          const { data, error } = await supabase.from('profiles').select().eq('id', userData?.user?.id);
           if (error) {
             console.error(error);
           }
@@ -96,7 +102,11 @@ function Messages() {
           if (data?.length !== 0) {
             setProfile(data?.[0]);
           } else {
-            setProfile(null);
+            setProfile({
+              id: userData?.user?.id!,
+              username: "Anonymous",
+              avatar: "",
+            });
           }       
         };
 
@@ -167,7 +177,7 @@ function Messages() {
           <div className="flex-1 rounded-lg border border-zinc-200 border-dashed dark:border-zinc-800">
           
           {messages?.map((message) => (
-            (message.sender === profile?.username) ?         
+            (message.sender === profile?.id) ?         
             <div key={message.id} className="p-4 flex items-start gap-4 justify-start">
               <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
               <div className="flex flex-col gap-2">
@@ -181,7 +191,7 @@ function Messages() {
             <div key={message.id} className="p-4 flex items-start gap-4 justify-end cursor-pointer">
               <Image alt="User avatar" className="rounded-full" height="40" src="/avatar.svg" width="40" />
               <div className="flex flex-col gap-2">
-                <div className="font-semibold text-zinc-800 dark:text-zinc-50">{message.sender}</div>
+                <div className="font-semibold text-zinc-800 dark:text-zinc-50">{message.senderUsername}</div>
                 <div className="text-sm text-zinc-600 dark:text-zinc-400">
                   {message.content}
                 </div>
