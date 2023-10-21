@@ -23,7 +23,7 @@ const About = async () => {
                     About the project
                 </h1>
                 <p className="max-w-[500px] text-lg text-muted-foreground sm:text-xl">
-                Welcome to our innovative online business platform, we have taken some ChatGPT text and added it to the next sections.
+                Welcome to our innovative online business platform, we offer an all-in-one web app to do online business.
                 </p>
 
                 <section className="w-full py-12 md:py-24 lg:py-32">
@@ -70,7 +70,7 @@ const About = async () => {
                 </div>
                 </section>
                 <section className="w-full py-12 md:py-24 lg:py-32">
-                <div className="grid grid-cols-3 gap-6 mt-5">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-5 mr-10 ml-10">
                     <div className="bg-white rounded-lg overflow-hidden shadow-lg">
                         <Image
                         alt="Card Image"
