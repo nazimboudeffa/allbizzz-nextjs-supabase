@@ -69,6 +69,24 @@ const Services = async function () {
             color: "red",
             link: "/",
         },
+        {
+            id: "6",
+            name: "Influence",
+            description:
+                "Find your next influencer.",
+            icon: <XCircle />,
+            color: "red",
+            link: "/",
+        },
+        {
+            id: "7",
+            name: "Jobs",
+            description:
+                "Post or find your next job.",
+            icon: <XCircle />,
+            color: "red",
+            link: "/",
+        },
     ]
     
     return (

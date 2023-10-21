@@ -60,7 +60,7 @@ export default async function PricingPage() {
                     Donate what you want.
                 </h1>
                 <p className="max-w-[500px] text-lg text-muted-foreground sm:text-xl">
-                    Start for free and get premium access with your donations.
+                    Start for free now!
                 </p>
             </div>
             <div className="mt-10 flex flex-row flex-wrap gap-5 px-20 justify-center">
@@ -126,10 +126,11 @@ export default async function PricingPage() {
                     Donation methods and rules.
                 </h1>
                 <div className="flex flex-wrap md:flex-row gap-3 justify-center">
-                    <Image src={tipeee} height={80} alt="tipee" />
-                    <Image src={bmc} height={80} alt="bmc" />
-                    <Image src={kofi} height={80} alt="kofi" />
+                    <Link href="https://fr.tipeee.com/nazimboudeffa"><Image src={tipeee} height={80} alt="tipee" /></Link>
                 </div>
+                <p className="max-w-[500px] text-lg text-muted-foreground sm:text-xl">
+                    Please donate by clicking on Tipeee.
+                </p>
                 <p className="max-w-[500px] text-lg text-muted-foreground sm:text-xl">
                     You have to notice that donations are not refundable and the service can stop at anytime.
                 </p>
