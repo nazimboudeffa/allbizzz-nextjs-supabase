@@ -67,7 +67,7 @@ const Services = async function () {
                 "Manage your sites.",
             icon: <XCircle />,
             color: "red",
-            link: "/",
+            link: "/services/seo",
         },
         {
             id: "6",
@@ -83,6 +83,15 @@ const Services = async function () {
             name: "Jobs",
             description:
                 "Post or find your next job.",
+            icon: <XCircle />,
+            color: "red",
+            link: "/",
+        },
+        {
+            id: "7",
+            name: "Networking",
+            description:
+                "Meet awesome people and build your team.",
             icon: <XCircle />,
             color: "red",
             link: "/",
