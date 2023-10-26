@@ -2,25 +2,29 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
+import { useState } from "react"
+
 type AnalysisResult = {
-    titleKeywords: string;
-    descriptionKeywords: string;
+    titleKeywords: string[];
+    descriptionKeywords: string[];
 }
 
 export default function Analyzer() {
+
+    const [url, setUrl] = useState<string>('')
       
-    function analyseTitle(html: Document): string[] {
-    const title = html.querySelector("title")?.textContent;
+    function analyseTitle(doc: Document): string[] {
+    const title = doc.querySelector("title")?.textContent;
     return title?.split(" ")?? [];
     }
     
-    function analyseDescription(html: Document): string[] {
-    const description = html.querySelector("meta[name='description']")?.textContent;
+    function analyseDescription(doc: Document): string[] {
+    const description = doc.querySelector("meta[name='description']")?.getAttribute('content');
     return description?.split(" ")?? [];
     }
     
-    function analyseHTMLStructure(html: string): { numLines: number; numCharacters: number } {
-    const codeHTML = html.replace(/\s/g, "");
+    function analyseHTMLStructure(doc: string): { numLines: number; numCharacters: number } {
+    const codeHTML = doc.replace(/\s/g, "");
     const codeLines = codeHTML.split("\n");
     return {
         numLines: codeLines.length,
@@ -29,7 +33,8 @@ export default function Analyzer() {
     }
     
     async function analyseSEO(url: string): Promise<AnalysisResult> {
-        console.log(url)
+    let html = ''
+    // Fetch the HTML
     try {
         const response = await fetch('/api/title', {
             method: 'POST',
@@ -38,32 +43,40 @@ export default function Analyzer() {
             },
             body: JSON.stringify({ url }),
         });
-        const { message } = await response.json();
-        console.log(message)
-        } catch (error) {
+        const { data } = await response.json();
+        html = data
+    } catch (error) {
         console.error(error);
-        };
-    
+    };
+
+    // Analyse the HTML structure
+    const document = new DOMParser().parseFromString(html, 'text/html');
+
     // Analyse the title
-    const titleKeywords = "titleKeywords";
+    const titleKeywords = analyseTitle(document);
+    console.log(titleKeywords)
 
     // Analyse the description
-    const descriptionKeywords = "descriptionKeywords";
+    const descriptionKeywords = analyseDescription(document);
+    console.log(descriptionKeywords)
     
     // Return the analysis results
     return {
         titleKeywords,
         descriptionKeywords,
-    };
+        };
     }
-    const handleClick = () => {
-        const results = analyseSEO("https://www.google.com/");
+    const handleClick = (url: string) => {
+        if (!url) {
+            return;
+        }
+        const results = analyseSEO(url);
         console.log(results);
     }
     return (
-        <div className="flex flex-row">
-            <Input type="text" placeholder="https://example.com" />
-            <Button type="submit" onClick={handleClick}>Analyse!</Button>
+        <div className="flex flex-row gap-1">
+            <Input type="text" placeholder="https://example.com" onChange={(e) => setUrl(e.target.value)}/>
+            <Button type="submit" onClick={()=>handleClick(url)}>Analyse!</Button>
         </div>
     )
 }

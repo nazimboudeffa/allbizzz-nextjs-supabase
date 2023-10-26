@@ -5,5 +5,5 @@ export async function POST (request: NextRequest) {
     const res = await fetch(body.url)
     const html = await res.text()
    
-    return NextResponse.json({ message: html }, { status: 200 });
+    return NextResponse.json({ data: html }, { status: 200 });
 }
