@@ -26,12 +26,12 @@ const Services = async function () {
         },
         {
             id: "1",
-            name: "Affiliation",
+            name: "SEO",
             description:
-                "Create affiliation campaings.",
-            icon: <XCircle />,
-            color: "red",
-            link: "/",
+                "Manage your sites.",
+            icon: <CheckCircle2 />,
+            color: "green",
+            link: "/services/seo",
         },
         {
             id: "2",
@@ -62,12 +62,12 @@ const Services = async function () {
         },
         {
             id: "5",
-            name: "SEO",
+            name: "Affiliation",
             description:
-                "Manage your sites.",
+                "Create affiliation campaings.",
             icon: <XCircle />,
             color: "red",
-            link: "/services/seo",
+            link: "/",
         },
         {
             id: "6",
