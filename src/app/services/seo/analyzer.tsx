@@ -1,8 +1,10 @@
 "use client"
+import { useState } from "react"
+
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { useState } from "react"
+import { Loader2, Code } from "lucide-react"
 
 type AnalysisResult = {
     titleKeywords: string[];
@@ -15,6 +17,7 @@ export default function Analyzer() {
 
     const [url, setUrl] = useState<string>('')
     const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
+    const [isLoading, setIsLoading] = useState<boolean>(false)
       
     function analyseTitle(doc: Document): string[] {
     const title = doc.querySelector("title")?.textContent;
@@ -39,6 +42,7 @@ export default function Analyzer() {
     let html = ''
     // Fetch the HTML
     try {
+        setIsLoading(true)
         const response = await fetch('/api/title', {
             method: 'POST',
             headers: {
@@ -48,6 +52,7 @@ export default function Analyzer() {
         });
         const { data } = await response.json();
         html = data
+        setIsLoading(false)
     } catch (error) {
         console.error(error);
     };
@@ -69,9 +74,7 @@ export default function Analyzer() {
         descriptionKeywords,
         numLines,
         numCharacters,
-    });
-
-    // Return the results
+        });
     return {
         titleKeywords,
         descriptionKeywords,
@@ -87,16 +90,22 @@ export default function Analyzer() {
     }
     return (
         <div className="flex flex-col items-center">
-            <div className="flex flex-row gap-1">
+            <div className="flex flex-row gap-2">
                 <Input type="text" placeholder="https://example.com" value={url} onChange={(e) => setUrl(e.target.value)} />
-                <Button type="submit" onClick={()=>handleClick(url)}>Analyse!</Button>
+                <Button type="submit" onClick={()=>handleClick(url)} disabled={isLoading}>
+                    {isLoading ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                        <Code className="mr-2 h-4 w-4" />
+                    )}{"Analyse!"}
+                </Button>
             </div>
             {analysisResult && (
                 <div className="mt-3">
                     <div>Title Keywords: {analysisResult.titleKeywords.join(", ")}</div>
                     <div>Description Keywords: {analysisResult.descriptionKeywords.join(", ")}</div>
                     <div>Lines : {analysisResult.numLines}</div>
-                    <div> Characters : {analysisResult.numCharacters}</div>
+                    <div>Characters : {analysisResult.numCharacters}</div>
                 </div>
             )}
         </div>
