@@ -65,8 +65,8 @@ const Services = async function () {
             name: "SEO",
             description:
                 "Manage your sites.",
-            icon: <XCircle />,
-            color: "red",
+            icon: <CheckCircle2 />,
+            color: "green",
             link: "/services/seo",
         },
         {

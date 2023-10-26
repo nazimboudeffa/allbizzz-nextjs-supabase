@@ -7,11 +7,14 @@ import { useState } from "react"
 type AnalysisResult = {
     titleKeywords: string[];
     descriptionKeywords: string[];
+    numLines: number;
+    numCharacters: number;
 }
 
 export default function Analyzer() {
 
     const [url, setUrl] = useState<string>('')
+    const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
       
     function analyseTitle(doc: Document): string[] {
     const title = doc.querySelector("title")?.textContent;
@@ -23,8 +26,8 @@ export default function Analyzer() {
     return description?.split(" ")?? [];
     }
     
-    function analyseHTMLStructure(doc: string): { numLines: number; numCharacters: number } {
-    const codeHTML = doc.replace(/\s/g, "");
+    function analyseHTMLStructure(html: string): { numLines: number; numCharacters: number } {
+    const codeHTML = html.replace(/\s/g, "");
     const codeLines = codeHTML.split("\n");
     return {
         numLines: codeLines.length,
@@ -49,34 +52,53 @@ export default function Analyzer() {
         console.error(error);
     };
 
-    // Analyse the HTML structure
+    // Structure the HTML code
     const document = new DOMParser().parseFromString(html, 'text/html');
 
     // Analyse the title
     const titleKeywords = analyseTitle(document);
-    console.log(titleKeywords)
 
     // Analyse the description
     const descriptionKeywords = analyseDescription(document);
-    console.log(descriptionKeywords)
     
-    // Return the analysis results
+    // Analyse the HTML structure
+    const { numLines, numCharacters } = analyseHTMLStructure(html);
+
+    setAnalysisResult({
+        titleKeywords,
+        descriptionKeywords,
+        numLines,
+        numCharacters,
+    });
+
+    // Return the results
     return {
         titleKeywords,
         descriptionKeywords,
+        numLines,
+        numCharacters,
         };
     }
     const handleClick = (url: string) => {
         if (!url) {
             return;
         }
-        const results = analyseSEO(url);
-        console.log(results);
+        analyseSEO(url);
     }
     return (
-        <div className="flex flex-row gap-1">
-            <Input type="text" placeholder="https://example.com" onChange={(e) => setUrl(e.target.value)}/>
-            <Button type="submit" onClick={()=>handleClick(url)}>Analyse!</Button>
+        <div className="flex flex-col items-center">
+            <div className="flex flex-row gap-1">
+                <Input type="text" placeholder="https://example.com" value={url} onChange={(e) => setUrl(e.target.value)} />
+                <Button type="submit" onClick={()=>handleClick(url)}>Analyse!</Button>
+            </div>
+            {analysisResult && (
+                <div className="mt-3">
+                    <div>Title Keywords: {analysisResult.titleKeywords.join(", ")}</div>
+                    <div>Description Keywords: {analysisResult.descriptionKeywords.join(", ")}</div>
+                    <div>Lines : {analysisResult.numLines}</div>
+                    <div> Characters : {analysisResult.numCharacters}</div>
+                </div>
+            )}
         </div>
     )
 }
