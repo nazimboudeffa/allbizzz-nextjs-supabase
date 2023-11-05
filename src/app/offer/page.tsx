@@ -22,7 +22,7 @@ const Services = async function () {
                 "Share business announcements and get partners.",
             icon: <CheckCircle2 />,
             color: "green",
-            link: "/services/anouncement",
+            link: "/services/announcements",
         },
         {
             id: "1",
