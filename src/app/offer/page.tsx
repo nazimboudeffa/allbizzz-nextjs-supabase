@@ -17,12 +17,12 @@ const Services = async function () {
     const allServices = [
         {
             id: "0",
-            name: "Share you ideas",
+            name: "Anouncements",
             description:
-                "Share ideas and get business partners.",
+                "Share business announcements and get partners.",
             icon: <CheckCircle2 />,
             color: "green",
-            link: "/services/share-ideas",
+            link: "/services/anouncement",
         },
         {
             id: "1",

@@ -167,12 +167,12 @@ return (
     >
         <div className="max-w-[400px] md:max-w-[500px]">
             <div className="grid w-full items-center gap-2">
-                <Label htmlFor="website">Describe your idea</Label>
+                <Label htmlFor="website">Describe your anouncement</Label>
                 <Textarea
                     id="text"
                     rows={10}
                     className="text-md w-[400px] md:w-[500px] h-[200px]"
-                    placeholder="Enter your idea here..."
+                    placeholder="Enter your announcement here..."
                     {...register("description")}
                 />
                 {errors.description && errors.description?.message && (
@@ -196,7 +196,7 @@ return (
         </div>
     </form>
     <div className="w-full md:w-[500px] items-center">
-        <h1 className="text-2xl font-bold mb-5">Your shared ideas</h1>
+        <h1 className="text-2xl font-bold mb-5">Your announcements</h1>
         <div className="flex flex-col">
         {myIdeas && myIdeas.map((idea) => (
             <div key={idea?.id} className="flex justify-between p-5 border border-input shadow rounded-[12px] dark:border-slate-900 dark:shadow-slate-900 mb-3">
@@ -208,7 +208,7 @@ return (
     </div>
     </div>
     <section className="flex flex-col items-center gap-10 text-center">
-        <h1 className="text-2xl font-bold">What others are sharing</h1>
+        <h1 className="text-2xl font-bold">What others are announcing</h1>
         <div className="ml-5 mr-5 mt-5 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3">
         {ideas?.map((idea) => (
           sender === idea.user_id ? null :
@@ -229,7 +229,7 @@ return (
                             </AlertDialogTitle>
                             <AlertDialogDescription>
                                 <div>
-                                    This message will be sent to the idea creator.
+                                    This message will be sent to the ad creator.
                                 </div>
                                 <div className="mt-2">
                                     <Textarea

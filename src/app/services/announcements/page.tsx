@@ -26,10 +26,10 @@ export default async function ShareIdeas() {
                 <h1
                     className={`text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl ${fontHeading.variable}`}
                 >
-                    Share your ideas
+                    Share your announcements
                 </h1>
                 <p className="max-w-[700px] text-lg text-muted-foreground sm:text-xl">
-                    Start by typing some text that describe your business idea.
+                    Start by typing some text that describe your business.
                 </p>
             </div>
             </header>
