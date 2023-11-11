@@ -43,7 +43,7 @@ export default function Analyzer() {
     // Fetch the HTML
     try {
         setIsLoading(true)
-        const response = await fetch('/api/title', {
+        const response = await fetch('/api/seo', {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
