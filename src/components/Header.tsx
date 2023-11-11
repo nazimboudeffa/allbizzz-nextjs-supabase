@@ -83,16 +83,16 @@ function Header ( { session } : { session: Session | null } ) {
                         <Link href="/dashboard" className="text-sm font-medium text-gray-500 hover:text-gray-500/75">
                             Dashboard
                         </Link>
-                        <button onClick={handleSignOut} className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow">
+                        <button onClick={handleSignOut} className="rounded-full bg-teal-600 hover:bg-teal-700 px-5 py-2.5 text-sm font-medium text-white shadow">
                             Logout
                         </button>
                     </div>
                     ) : (
                 <div className="sm:flex sm:gap-4">
-                <Link href="/auth/sign-in" className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow mr-1">
+                <Link href="/auth/sign-in" className="rounded-full hover:bg-teal-600 px-5 py-2.5 text-sm font-medium hover:text-white shadow mr-1">
                     Login
                 </Link>
-                <Link href="/auth/sign-up" className="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow">
+                <Link href="/auth/sign-up" className="rounded-full bg-teal-600 hover:bg-teal-700 px-5 py-2.5 text-sm font-medium text-white shadow">
                     Register
                 </Link>
                 </div>
