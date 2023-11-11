@@ -22,7 +22,7 @@ const Services = async function () {
                 "Share business announcements and get partners.",
             icon: <CheckCircle2 />,
             color: "green",
-            link: "/services/announcements",
+            link: "/solutions/announcements",
         },
         {
             id: "1",
@@ -31,7 +31,7 @@ const Services = async function () {
                 "Manage your sites.",
             icon: <CheckCircle2 />,
             color: "green",
-            link: "/services/seo",
+            link: "/solutions/seo",
         },
         {
             id: "2",
@@ -88,10 +88,19 @@ const Services = async function () {
             link: "/",
         },
         {
-            id: "7",
+            id: "8",
             name: "Networking",
             description:
                 "Meet awesome people and build your team.",
+            icon: <XCircle />,
+            color: "red",
+            link: "/",
+        },
+        {
+            id: "9",
+            name: "Mailing",
+            description:
+                "Create mailing campaigns.",
             icon: <XCircle />,
             color: "red",
             link: "/",
